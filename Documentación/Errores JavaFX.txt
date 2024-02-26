@@ -1,0 +1,32 @@
+Hola...
+Yo tengo netbeans 18 Y JDK 17
+Con solo esto no me jalaba la libreria de JDK, me salia un error
+"failed to automatically set-up a javafx"
+Ton´s lo que hice, fue buscar tutoriales que me ayudaron 
+el mas acertado fue este https://youtu.be/tNEtCjCCwEk?si=PX6SIgYzgdexua0E
+--------Sin embargo tomar encuenta que:
+
+• Debemos tener instalado el SDK de la misma version que nuestro JDK (en mi caso 17)
+• Esto se consigue en la pagina oficial de JavaFX sdk https://gluonhq.com/products/javafx/
+  instalarlo y descomprimirlo en LA MISMA CARPETA DONDE ESTA EL JDK (en mi caso la carpeta se encontraba en disco local c/archivos de   programa/Java || C:\Program Files\Java  ← esta es de mi compu)
+• Despues el SDK jalarlo en libreria en netbeans
+	Voy a Netbeans > Tools > Libraries 
+	Creo una nueva libreria > new library > nombro la libreria (ya se creo) > AHORA  voy a ADD JAR/FILE jalar lo que descomprimi en el SDK, despues jalo unicamente lo que esta en la carpeta "lib" selecciono todos los archivos y ya listo
+
+-------------AHORA JDK FX
+• En el tutoriaL que vi, para bajar el jdk FX es de una pagina llamada azul JAVA https://www.azul.com/downloads/?version=java-21-lts&os=windows&package=jdk-fx#zulu
+• De igual forma descomprimirlo en LA MISMA CARPETA DONDE ESTA EL JDK (en mi caso la carpeta se encontraba en disco local c/archivos de   programa/Java || C:\Program Files\Java  ← esta es de mi compu)
+• Despues el JDKFX
+  Voy a Netbeans > Tools > Java Platforms > add platform > seleccionar la primera opcion que dice (Java Standar Edition) > jalo la carpeta que descomprimi del JDKFX (zulu algo ) > Despues me pide que nombre  y ya 
+• voy y creo un nuevo proyecto con javaFX
+
+
+----------
+Pues no me funciono JAJAJAJA
+OSEA SI, pero al momento de ejectar por el boton no se puede
+entoces segui investigando y ahora este tutorial si me sirvio, en dado caso me lo bajan 
+es leer mas que todo la docuemtnacion 
+https://youtu.be/Bk42DbVBzXM?si=ia8D89F_6nqgsppq
+
+-------------BUILDER
+https://gluonhq.com/products/scene-builder/
