@@ -1,0 +1,37 @@
+Crear una base de datos 
+COMANDO:  create database primeraprueba
+
+ir a tools> Query tool > y dentro poner el comando
+
+-------------------------------------------------------
+Eliminar una base de datos
+GRAFICO: click derecho> delete drop
+
+Para el comando primero debemos desconectar la base de datos, click derecho>Disconnect fron database
+COMANDO: 	Drop database if exists "primeraprueba";
+
+--------------------------------------------------------------
+-- Crear una tabla
+
+create table persona(
+	idpersona int not null, -- este campo no puede estar vacio
+	nombre varchar(20),  -- espacio de 20
+	cedula varchar (10)
+);
+
+----------------------------------------------------------
+--- Consultas - Select
+select * from persona
+
+-- select general
+select (nombre, cedula) from persona
+
+-- Select con alias
+select (nombre)as Nombre, cedula from persona
+
+-- select de algunas fila en especifico
+select nombre from persona
+where idpersona = '3'
+
+
+

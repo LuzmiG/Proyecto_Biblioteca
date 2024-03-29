@@ -1,0 +1,5 @@
+User:admin		
+Pass:123
+
+---------------------------
+numero de puerto: 5432

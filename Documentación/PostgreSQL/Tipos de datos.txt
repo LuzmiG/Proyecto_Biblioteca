@@ -1,0 +1,9 @@
+TIPOS DE DATOS
+- boolena = true or false
+- character(n) = cadena de caracteres de tamaño fijo
+- date = fecha
+. float = flotante
+- int, integer = numero entero
+- deciamal = numero exacto
+- time = timepo en horas minutos, segundo. etc
+- varchar(n) = cadena de caracteres de tamaño variable
