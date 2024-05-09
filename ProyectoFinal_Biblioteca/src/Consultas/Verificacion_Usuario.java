@@ -4,12 +4,14 @@
  */
 package Consultas;
 
+import Controlador.Interacciones_ventanas;
 import Modelo.Conexion;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import static proyectofinal_biblioteca.ProyectoFinal_Biblioteca.cerraVentana;
 
 /**
  *
@@ -25,13 +28,15 @@ import javafx.stage.Stage;
 public class Verificacion_Usuario {
     
     private Conexion fabricaConexion;
+    Interacciones_ventanas Iv = new Interacciones_ventanas();
+    
     
     public Verificacion_Usuario(){
         //se llama automáticamente cuando se crea un objeto tipo Verificacion_Usuario, Esto permite que los métodos de la clase Consultas realicen operaciones en la base de datos utilizando esa conexión
         this.fabricaConexion = new Conexion();
     }
     
-    
+  
     public void verificar(String usuario, String pass) throws IOException{
    
         
@@ -75,37 +80,21 @@ public class Verificacion_Usuario {
                 if(c.equals(pass)){
                    // verifica si el rol del usuario es “cliente”
                     if(rol.equals("cliente")){
-                        FXMLLoader nV = new FXMLLoader(getClass().getResource("/vista/Cliente.FXML"));
-                        Parent root = nV.load();
-                        
-                        
-                        Scene escena = new Scene(root);
-                        Stage stage = new Stage();
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.setScene(escena);
-                        stage.show();
-                        
-                       
-                        
-                        
-                        
+                   //     FXMLLoader vistaV = new FXMLLoader(getClass().getResource("/vista/Cliente.FXML"));
+                            Iv.ventanaCliente();
+  
                        
                     }
                     else if (rol.equals("empleado")){
-                        FXMLLoader nV = new FXMLLoader(getClass().getResource("/vista/Empleado.FXML"));
-                        Parent root = nV.load();
-                        
-                        
-                        Scene escena = new Scene(root);
-                        Stage stage = new Stage();
-                        stage.initModality(Modality.APPLICATION_MODAL);
-                        stage.setScene(escena);
-                        stage.show();
+                       Iv.ventanaEmpleado();
                     }
                 }
                 else{
                     System.out.println("El usuario no existe");
                 }
+            }
+            else{
+                System.out.println("----------El usario no existe");
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());

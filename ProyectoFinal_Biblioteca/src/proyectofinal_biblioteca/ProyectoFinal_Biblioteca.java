@@ -5,13 +5,13 @@
 package proyectofinal_biblioteca;
 
 
+import Modelo.Conexion;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -20,6 +20,10 @@ import javafx.stage.Stage;
  */
 public class ProyectoFinal_Biblioteca extends Application {
 
+    public static Stage ventanaActual;
+
+
+        
      @Override
     public void start(Stage primaryStage) throws Exception {
         try{
@@ -31,6 +35,7 @@ public class ProyectoFinal_Biblioteca extends Application {
             Scene scene = new Scene(ventana);
             primaryStage.setScene(scene);
             primaryStage.show();
+            ventanaActual = primaryStage;
             
             
         }
@@ -38,6 +43,10 @@ public class ProyectoFinal_Biblioteca extends Application {
             //Poner una alertar de error
             System.out.println(e.getMessage());
         }
+    }
+    public static void cerraVentana(Stage stage){
+    
+        stage.close();
     }
     
       public static void main(String[] args) {

@@ -8,14 +8,24 @@ import Consultas.Verificacion_Usuario;
 import Modelo.Conexion;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import proyectofinal_biblioteca.ProyectoFinal_Biblioteca;
+import static proyectofinal_biblioteca.ProyectoFinal_Biblioteca.cerraVentana;
+import static proyectofinal_biblioteca.ProyectoFinal_Biblioteca.ventanaActual;
 
 /**
  * FXML Controller class
@@ -23,6 +33,9 @@ import javafx.scene.input.MouseEvent;
  * @author Luzmi
  */
 public class LoginController implements Initializable {
+    
+    /*MANEJO DE VENTANAS*/
+    Stage stageLogin = new Stage();
 
     @FXML
     private Button btnIngresar;
@@ -35,9 +48,9 @@ public class LoginController implements Initializable {
 
     
     private Conexion fabricaConexion;
-    /**
-     * Initializes the controller class.
-     */
+    
+    Interacciones_ventanas Iv = new Interacciones_ventanas();
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.fabricaConexion = new Conexion();
@@ -63,7 +76,8 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void lblRegistar(MouseEvent event) {
+    private void lblRegistar(MouseEvent event) throws IOException {
+       Iv.ventanaRegistro();
     }
     
 }
