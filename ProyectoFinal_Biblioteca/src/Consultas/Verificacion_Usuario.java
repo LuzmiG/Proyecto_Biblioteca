@@ -88,13 +88,12 @@ public class Verificacion_Usuario {
                     else if (rol.equals("empleado")){
                        Iv.ventanaEmpleado();
                     }
-                }
-                else{
-                    System.out.println("El usuario no existe");
-                }
+                }            
             }
             else{
-                System.out.println("----------El usario no existe");
+                fabricaConexion.alertaNegativa("El usuario o contraseña no es correcta");
+                fabricaConexion.cerrarConexion();
+                System.out.println("----------El usuario o contraseña no es correcta");
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());

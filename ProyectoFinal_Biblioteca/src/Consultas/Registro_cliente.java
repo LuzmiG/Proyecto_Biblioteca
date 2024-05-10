@@ -54,6 +54,7 @@ public class Registro_cliente {
             sentencia.executeUpdate();
             
             fabricaConexion.alertaAfrimativa("Felicidades! Se registro correctamente");
+            sentencia.close();
         }
         catch(Exception e){
             fabricaConexion.alertaNegativa("ERROR" + e.getMessage());
@@ -62,23 +63,23 @@ public class Registro_cliente {
     }
     
     public boolean usuarioExiste(String usuario) {
-    boolean existe = false;
-    try {
-    Connection conexion = this.fabricaConexion.getConexion();
+        boolean existe = false;
+        try {
+            Connection conexion = this.fabricaConexion.getConexion();
 
-        PreparedStatement sentencia = conexion.prepareStatement("SELECT count(*) FROM cliente WHERE usuario = ?");
-        sentencia.setString(1, usuario);
-        ResultSet rs = sentencia.executeQuery();
-        if (rs.next()) {
-            int count = rs.getInt(1);
-            existe = count > 0;
+            PreparedStatement sentencia = conexion.prepareStatement("SELECT count(*) FROM cliente WHERE usuario = ?");
+            sentencia.setString(1, usuario);
+            ResultSet rs = sentencia.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                existe = count > 0;
+            }
+            rs.close();
+            sentencia.close();
+        } catch (SQLException e) {
+            System.out.println(e.toString());
         }
-        rs.close();
-        sentencia.close();
-    } catch (SQLException e) {
-        System.out.println(e.toString());
-    }
-    return existe;
+        return existe;
 }
     
 }

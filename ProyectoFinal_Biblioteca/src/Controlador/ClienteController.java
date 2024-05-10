@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -19,11 +20,15 @@ import javafx.scene.control.Button;
 public class ClienteController implements Initializable {
 
     @FXML
-    private Button btnAgregar;
+    private Button btnForm_Agregar;
     @FXML
-    private Button btnActualizar_Inventario;
+    private Button btnForm_Actualizar_Inventario;
     @FXML
-    private Button btnRegistar_Devolucion;
+    private Button btnFormRegistar_Devolucion;
+    @FXML
+    private AnchorPane pnl_AgregarLibro;
+    @FXML
+    private AnchorPane pnl_ActualizarInventario;
 
     /**
      * Initializes the controller class.
@@ -34,15 +39,15 @@ public class ClienteController implements Initializable {
     }    
 
     @FXML
-    private void btnAgregar(ActionEvent event) {
+    private void btnForm_Agregar(ActionEvent event) {
     }
 
     @FXML
-    private void btnActualizar_Inventario(ActionEvent event) {
+    private void btnForm_Actualizar_Inventario(ActionEvent event) {
     }
 
     @FXML
-    private void btnRegistar_Devolucion(ActionEvent event) {
+    private void btnFormRegistar_Devolucion(ActionEvent event) {
     }
     
 }
