@@ -6,6 +6,12 @@ package Consultas;
 
 import Modelo.Conexion;
 import Modelo.Libro;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -172,6 +178,23 @@ public class Cst_libro {
         } catch (Exception e) {
         }
         
+    }
+    
+    public void serializarTabla(ArrayList<Libro> listaLibros){
+        Path ruta = Paths.get("Lista de Libros.txt");
+        try{
+            OutputStream flujoSalida = Files.newOutputStream(ruta);
+            ObjectOutputStream objSalida = new ObjectOutputStream(flujoSalida);
+            
+            objSalida.writeObject(listaLibros);
+            //System.out.println("Se exportaron correctamente");
+            fabricaConexion.alertaAfrimativa("Se exportaron correctamente");
+            objSalida.close();
+        }
+        catch(IOException e){
+           fabricaConexion.alertaNegativa("Hubo un error al exportar los datos" + e);
+        }
+    
     }
     
     

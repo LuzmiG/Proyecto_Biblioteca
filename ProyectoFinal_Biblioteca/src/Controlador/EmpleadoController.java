@@ -74,6 +74,10 @@ public class EmpleadoController implements Initializable {
     private Cst_libro consulta;
     //Opciones pARA MI CONTExt menu
     private Libro opcContex;
+    @FXML
+    private Button btnExportar_libros;
+    ///variabel para mostra en tablas y serializar
+    ArrayList<Libro> lista = new ArrayList();
 
     /**
      * txtTitulo txtAutor txtAñoPublicacion txtEditorial txtDescripcion
@@ -207,7 +211,7 @@ public class EmpleadoController implements Initializable {
         tblLibros.getColumns().clear();
 
         //Creo un ArrayLIST DE tipo Libro
-        ArrayList<Libro> lista = new ArrayList();
+       // ArrayList<Libro> lista = new ArrayList();
         //llamo a mi metodo mostrarLibro
         consulta.mostrarLibros(lista);
         // Creo un ObservableList a partir de la lista de libros
@@ -248,7 +252,19 @@ public class EmpleadoController implements Initializable {
         //son objetos que representan las columnas de la tabla.
         tblLibros.getColumns().addAll(isbndCol, tituloCol, autorCol, anioCol, editorialCol, descripCol, canCol, categoriaCol);
     }
+  
 
+    @FXML
+    private void btnExportar_libros(ActionEvent event) {
+         //Creo un ArrayLIST DE tipo Libro
+        //ArrayList<Libro> lista = new ArrayList();
+     
+        //llamo a mi metodo exportar
+        consulta.serializarTabla(lista);
+    
+    }
+    
+    
     public void limpiar() {
 
         txtTitulo.setText("");
@@ -260,5 +276,4 @@ public class EmpleadoController implements Initializable {
         //cbxCategoria.setItems();
 
     }
-
 }

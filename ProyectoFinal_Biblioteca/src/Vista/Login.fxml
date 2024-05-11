@@ -17,6 +17,13 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <children>
+            <Label fx:id="lbl_idUsuario" layoutX="44.0" layoutY="421.0" text="Usuario:">
+               <font>
+                  <Font name="Lato Regular" size="15.0" />
+               </font>
+            </Label>
+         </children>
       </Pane>
       <ImageView disable="true" fitHeight="141.0" fitWidth="140.0" layoutX="282.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>

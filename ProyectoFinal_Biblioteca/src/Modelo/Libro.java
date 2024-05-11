@@ -4,11 +4,13 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Luzmi
  */
-public class Libro {
+public class Libro implements Serializable {
     //isbn, titulo, autor, anioPublicacion, editorial, descripcion, cantidadDisponible, categoria
    private int isbn;
    private String titulo;
@@ -82,6 +84,13 @@ public class Libro {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public String toString() {
+        return "Libro{" + "isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", anioPublicacion=" + anioPublicacion + ", editorial=" + editorial + ", descripcion=" + descripcion + ", cantidadDisponible=" + cantidadDisponible + ", categoria=" + categoria + '}';
+    }
+    
+    
     
    
    

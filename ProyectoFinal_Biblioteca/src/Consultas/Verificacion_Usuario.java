@@ -30,6 +30,7 @@ public class Verificacion_Usuario {
     private Conexion fabricaConexion;
     Interacciones_ventanas Iv = new Interacciones_ventanas();
     
+    private  int userId;
     
     public Verificacion_Usuario(){
         //se llama automáticamente cuando se crea un objeto tipo Verificacion_Usuario, Esto permite que los métodos de la clase Consultas realicen operaciones en la base de datos utilizando esa conexión
@@ -86,6 +87,7 @@ public class Verificacion_Usuario {
                        
                     }
                     else if (rol.equals("empleado")){
+                       
                        Iv.ventanaEmpleado();
                     }
                 }            
@@ -102,4 +104,28 @@ public class Verificacion_Usuario {
         
 // preparedStatement
     }
+    
+    public void capturarId(String usuario){
+          //Crea la conexion a la base de datos 
+       
+        try {
+            Connection conectar = fabricaConexion.getConexion();
+            int userId = 0;
+            String sql = "SELECT id_cliente FROM cliente WHERE usuario = ?";
+            PreparedStatement sentencia = conectar.prepareStatement(sql);
+            sentencia.setString(1, usuario);
+            ResultSet datos = sentencia.executeQuery();
+             if (datos.next()) {
+                userId = datos.getInt("id_cliente");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Verificacion_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+     
+    }
+    
+    
 }

@@ -66,7 +66,7 @@ public class Interacciones_ventanas {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(escena);
         stage.show();
-        cerraVentana(ventanaActual); 
+       // cerraVentana(ventanaActual); 
       fabricaConexion.cerrarConexion();
     }
 }

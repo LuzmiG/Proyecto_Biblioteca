@@ -23,9 +23,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import proyectofinal_biblioteca.ProyectoFinal_Biblioteca;
-import static proyectofinal_biblioteca.ProyectoFinal_Biblioteca.cerraVentana;
-import static proyectofinal_biblioteca.ProyectoFinal_Biblioteca.ventanaActual;
 
 /**
  * FXML Controller class
@@ -50,6 +47,8 @@ public class LoginController implements Initializable {
     private Conexion fabricaConexion;
     
     Interacciones_ventanas Iv = new Interacciones_ventanas();
+    @FXML
+    private Label lbl_idUsuario;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,6 +70,13 @@ public class LoginController implements Initializable {
         String usuario = txtUsuario.getText();
         String pass = txtPass.getText();
         verificar.verificar(usuario, pass);
+        verificar.capturarId(usuario);
+        lbl_idUsuario.setText(usuario);
+        //verificar.capturarId(usuario);
+        
+       
+        
+        
         
        
     }
@@ -79,5 +85,6 @@ public class LoginController implements Initializable {
     private void lblRegistar(MouseEvent event) throws IOException {
        Iv.ventanaRegistro();
     }
+
     
 }

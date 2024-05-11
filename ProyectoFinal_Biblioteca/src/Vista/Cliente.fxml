@@ -22,54 +22,170 @@
                      <children>
                         <AnchorPane layoutY="82.0" prefHeight="166.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="117.0" fitWidth="128.0" layoutX="42.0" layoutY="-27.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../Imagenes/3.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="21.0" layoutY="90.0" text="Empleado" textFill="WHITE">
+                              <Label layoutX="72.0" layoutY="5.0" prefHeight="19.0" prefWidth="57.0" text="Usuario" textAlignment="CENTER" textFill="WHITE">
                                  <font>
-                                    <Font name="Lato Black" size="35.0" />
+                                    <Font name="Lato Regular" size="15.0" />
                                  </font>
                               </Label>
-                              <Line endX="69.0" layoutX="122.0" layoutY="152.0" startX="-104.0" stroke="WHITE" strokeWidth="2.0" />
+                              <Label fx:id="lbl_usuario" layoutX="56.0" layoutY="31.0" prefHeight="19.0" prefWidth="89.0" text="----" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="42.0" layoutY="58.0" prefHeight="19.0" prefWidth="132.0" text="Codigo de Usuario " textFill="WHITE">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_idUsuario" layoutX="85.0" layoutY="83.0" prefHeight="19.0" prefWidth="46.0" text="----" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
-                        <Button fx:id="btnAgregar" contentDisplay="TOP" layoutX="8.0" layoutY="255.0" mnemonicParsing="false" onAction="#btnAgregar" prefHeight="45.0" prefWidth="189.0" style="-fx-background-color: #7F9F80;" text="Agregar Libro" textAlignment="RIGHT" textFill="WHITE">
+                        <Button fx:id="btnLibros" contentDisplay="TOP" layoutX="10.0" layoutY="397.0" mnemonicParsing="false" onAction="#cambiarForm" prefHeight="45.0" prefWidth="181.0" style="-fx-background-color: #7F9F80;" text="Libros" textAlignment="RIGHT" textFill="WHITE">
                            <font>
                               <Font name="Lato Black" size="15.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="21.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="46.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../Imagenes/add.png" />
+                              <Image url="@../Imagenes/book.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="btnActualizar_Inventario" contentDisplay="TOP" layoutX="8.0" layoutY="313.0" mnemonicParsing="false" onAction="#btnActualizar_Inventario" prefHeight="45.0" prefWidth="189.0" style="-fx-background-color: #7F9F80;" text="Actualizar Invetario" textAlignment="RIGHT" textFill="WHITE">
+                        <Button fx:id="btnRecom" contentDisplay="TOP" layoutX="11.0" layoutY="458.0" mnemonicParsing="false" onAction="#cambiarForm" prefHeight="45.0" prefWidth="179.0" style="-fx-background-color: #7F9F80;" text="Recomendaciones" textAlignment="RIGHT" textFill="WHITE">
                            <font>
                               <Font name="Lato Black" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnRegistar_Devolucion" contentDisplay="TOP" layoutX="9.0" layoutY="371.0" mnemonicParsing="false" onAction="#btnRegistar_Devolucion" prefHeight="45.0" prefWidth="189.0" style="-fx-background-color: #7F9F80;" text="Registrar Devolución" textAlignment="RIGHT" textFill="WHITE">
+                        <Line endX="68.0" endY="16.0" layoutX="118.0" layoutY="362.0" startX="-100.0" startY="16.0" stroke="WHITE" strokeWidth="2.0" />
+                        <Label layoutX="24.0" layoutY="48.0" text="BIENVENIDO" textFill="WHITE">
                            <font>
-                              <Font name="Lato Black" size="15.0" />
+                              <Font name="Lato Black" size="25.0" />
                            </font>
-                        </Button>
+                        </Label>
+                        <ImageView fitHeight="154.0" fitWidth="157.0" layoutX="26.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Imagenes/5.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                </left>
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="12.0" layoutY="18.0" prefHeight="577.0" prefWidth="871.0">
+                        <AnchorPane fx:id="pnl_VerLibro" layoutX="12.0" layoutY="18.0" prefHeight="577.0" prefWidth="871.0">
                            <children>
-                              <AnchorPane layoutX="10.0" layoutY="14.0" opacity="0.91" prefHeight="200.0" prefWidth="850.0" style="-fx-background-color: #7F9F80; -fx-background-radius: 20;" />
-                              <TableView layoutX="14.0" layoutY="240.0" prefHeight="251.0" prefWidth="842.0" style="-fx-background-color: #fff; -fx-border-color: #7F9F80; -fx-border-width: 5;">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="Id_Codigo" />
-                                  <TableColumn prefWidth="75.0" text="Titulo" />
-                                </columns>
+                              <TableView fx:id="tblLibros" layoutX="37.0" layoutY="33.0" onMouseClicked="#seleccionarInfo" prefHeight="488.0" prefWidth="431.0" style="-fx-background-color: #fff; -fx-border-color: #7F9F80; -fx-border-width: 3;">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="Id_Codigo" />
+                                 </columns>
                               </TableView>
+                              <Label layoutX="536.0" layoutY="88.0" prefHeight="19.0" prefWidth="52.0" text="Titulo:">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_titulo" layoutX="623.0" layoutY="88.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="19.0" prefWidth="217.0" text="----------------" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="536.0" layoutY="125.0" prefHeight="19.0" prefWidth="52.0" text="Autor:">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_autor" layoutX="623.0" layoutY="125.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="19.0" prefWidth="222.0" text="----------------" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="536.0" layoutY="164.0" prefHeight="19.0" prefWidth="175.0" text="Año De Publicación:">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_anioPubli" layoutX="701.0" layoutY="164.0" prefHeight="19.0" prefWidth="87.0" text="----------------" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="536.0" layoutY="198.0" prefHeight="19.0" prefWidth="87.0" text="Editorial:">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_editorial" layoutX="628.0" layoutY="198.0" prefHeight="19.0" prefWidth="195.0" text="----------------" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="536.0" layoutY="228.0" prefHeight="19.0" prefWidth="108.0" text="Descripción: " wrapText="true">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_descripcion" layoutX="536.0" layoutY="253.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="140.0" prefWidth="297.0" text="----------------" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="536.0" layoutY="467.0" prefHeight="19.0" prefWidth="108.0" text="Categoría:" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_categoria" layoutX="628.0" layoutY="467.0" prefHeight="19.0" prefWidth="87.0" text="----------------" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="538.0" layoutY="502.0" prefHeight="19.0" prefWidth="157.0" text="Cantidad Disponible: " wrapText="true">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_can" layoutX="701.0" layoutY="502.0" prefHeight="19.0" prefWidth="87.0" text="----------------" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="536.0" layoutY="52.0" prefHeight="19.0" prefWidth="52.0" text="ISBN:">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_ISBN" layoutX="623.0" layoutY="52.0" prefHeight="19.0" prefWidth="87.0" text="----------------" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pnl_Bienvenido" layoutX="143.0" layoutY="160.0" prefHeight="307.0" prefWidth="577.0" visible="false">
+                           <children>
+                              <Label layoutX="211.0" layoutY="110.0" text="Bienvenido">
+                                 <font>
+                                    <Font name="Lato Black Italic" size="70.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="236.0" fitWidth="297.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Imagenes/4.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="pnl_recomendaciones" prefHeight="579.0" prefWidth="873.0" visible="false">
+                           <children>
+                              <Label layoutX="176.0" layoutY="253.0" text="RECOMENDACIONES">
+                                 <font>
+                                    <Font size="50.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                      </children>
