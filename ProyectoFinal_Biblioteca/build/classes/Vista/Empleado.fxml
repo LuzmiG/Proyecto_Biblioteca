@@ -61,13 +61,23 @@
                               <Font name="Lato Black" size="15.0" />
                            </font>
                         </Button>
+                        <ImageView fitHeight="45.0" fitWidth="79.0" layoutX="25.0" layoutY="654.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Imagenes/logout.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lbl_regresar" layoutX="79.0" layoutY="664.0" onMouseClicked="#regresarLogin" text="Regresar" textFill="WHITE">
+                           <font>
+                              <Font name="Lato Black" size="20.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </left>
                <center>
                   <AnchorPane prefHeight="678.0" prefWidth="927.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="pnl_AgregarLibro" layoutX="12.0" layoutY="18.0" prefHeight="698.0" prefWidth="942.0">
+                        <AnchorPane fx:id="pnl_AgregarLibro" layoutX="12.0" layoutY="18.0" prefHeight="698.0" prefWidth="942.0" visible="false">
                            <children>
                               <AnchorPane layoutY="14.0" maxWidth="-Infinity" opacity="0.91" prefHeight="302.0" prefWidth="910.0" style="-fx-background-color: #fff; -fx-background-radius: 10;">
                                  <children>
@@ -178,13 +188,44 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pnl_devolucionLibro" layoutX="12.0" layoutY="18.0" prefHeight="582.0" prefWidth="876.0" style="-fx-background-color: green;" visible="false">
+                        <AnchorPane fx:id="pnl_devolucionLibro" layoutX="12.0" layoutY="18.0" prefHeight="675.0" prefWidth="930.0" style="-fx-background-color: #fff;">
                            <children>
-                              <Label layoutX="291.0" layoutY="210.0" text="DEVOLUCIÓN" textFill="WHITE">
+                              <TableView fx:id="tblPrestamos" layoutX="14.0" layoutY="72.0" prefHeight="251.0" prefWidth="868.0" style="-fx-background-color: #fff; -fx-border-color: #7F9F80; -fx-border-width: 3;">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="Id_Codigo" />
+                                 </columns>
+                                 <contextMenu>
+                                    <ContextMenu fx:id="cmOpciones1" />
+                                 </contextMenu>
+                              </TableView>
+                              <Label layoutX="25.0" layoutY="28.0" text="Lista De libros prestados">
                                  <font>
-                                    <Font name="Lato Black" size="50.0" />
+                                    <Font name="Lato Bold" size="20.0" />
                                  </font>
                               </Label>
+                              <Line endX="610.0" layoutX="260.0" layoutY="41.0" startX="3.0" strokeWidth="2.0" />
+                              <Label layoutX="25.0" layoutY="335.0" text="Registar Devolución">
+                                 <font>
+                                    <Font name="Lato Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="658.0" layoutX="223.0" layoutY="348.0" startX="3.0" strokeWidth="2.0" />
+                              <Label layoutX="25.0" layoutY="382.0" prefHeight="19.0" prefWidth="159.0" text="Ingresar id Prestamo:">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtIdPrestamo" layoutX="193.0" layoutY="376.0" prefHeight="31.0" prefWidth="105.0" promptText="Id Prestamo" style="-fx-border-color: #A8CD9F; -fx-background-color: #fff; -fx-border-width: 3;" viewOrder="5.0">
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" />
+                                 </opaqueInsets>
+                              </TextField>
+                              <Label fx:id="lblDatosPrestamo" layoutX="25.0" layoutY="417.0" prefHeight="214.0" prefWidth="230.0" text="Label" wrapText="true" />
+                              <Button fx:id="btnBuscar" layoutX="313.0" layoutY="374.0" mnemonicParsing="false" onAction="#btnBuscar_prestamo" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #A91D3A;" text="Buscar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="pnl_Bienvenido" layoutX="133.0" layoutY="150.0" prefHeight="307.0" prefWidth="577.0" visible="false">

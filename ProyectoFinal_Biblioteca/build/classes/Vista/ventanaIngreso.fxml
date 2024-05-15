@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.VentanaIngresoController">
+   <children>
+      <ImageView fitHeight="88.0" fitWidth="87.0" layoutX="257.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Downloads/libroicono.png" />
+         </image>
+      </ImageView>
+      <Text fill="#171717" layoutX="120.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido al Sistema de Gestión de Biblioteca">
+         <font>
+            <Font name="Franklin Gothic Heavy" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="53.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese su correo electronico:" />
+      <Text layoutX="53.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingrese su contraseña:" />
+      <Button layoutX="197.0" layoutY="301.0" mnemonicParsing="false" onAction="#boton_ingresar" style="-fx-background-color: #B967FF;" text="Ingresar" />
+      <TextField layoutX="53.0" layoutY="169.0" prefHeight="26.0" prefWidth="464.0" />
+      <Button layoutX="326.0" layoutY="301.0" mnemonicParsing="false" style="-fx-background-color: #B967FF;" text="Regresar" />
+      <PasswordField layoutX="53.0" layoutY="251.0" prefHeight="26.0" prefWidth="464.0" />
+   </children>
+</AnchorPane>

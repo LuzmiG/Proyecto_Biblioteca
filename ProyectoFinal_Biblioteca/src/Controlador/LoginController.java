@@ -5,6 +5,7 @@
 package Controlador;
 
 import Consultas.Verificacion_Usuario;
+import Modelo.Cliente;
 import Modelo.Conexion;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
+
 import javafx.stage.Stage;
 
 /**
@@ -43,10 +45,13 @@ public class LoginController implements Initializable {
     @FXML
     private TextField txtPass;
 
+    private Cliente opcContex;
+
     
     private Conexion fabricaConexion;
     
-    Interacciones_ventanas Iv = new Interacciones_ventanas();
+
+    
     @FXML
     private Label lbl_idUsuario;
    
@@ -66,24 +71,40 @@ public class LoginController implements Initializable {
 
     @FXML
     private void btnIngresar(ActionEvent event) throws IOException {
-        Verificacion_Usuario verificar = new Verificacion_Usuario();
+        //Porque cuando se inicia hace una conexion, es decir hay un usario conectando, por eso cierrro y ya verrificar abre pero ya en su clase 
+        
+       fabricaConexion.cerrarConexion();
+        Verificacion_Usuario v = new Verificacion_Usuario();
         String usuario = txtUsuario.getText();
         String pass = txtPass.getText();
-        verificar.verificar(usuario, pass);
-        verificar.capturarId(usuario);
-        lbl_idUsuario.setText(usuario);
+        v.verificar(usuario, pass);
+        fabricaConexion.cerrarConexion();
+
+       
+
+        
+       /* Cliente cl = new Cliente();
+        String u = cl.getNombre();
+        verificar.capturarId(u);
+        lbl_idUsuario.setText(u);
+       String index = u;
+      opcContex = index.s*/
+
+      /* int id = opcContex.getId();
+        String txtoid = Integer.toString(id);
+       // lbl_idUsuario.setText(txtoid);
+        
+       // lbl_idUsuario.setText(usuario);
         //verificar.capturarId(usuario);
-        
-       
-        
-        
-        
-       
+     
+       */
     }
 
     @FXML
     private void lblRegistar(MouseEvent event) throws IOException {
-       Iv.ventanaRegistro();
+       Interacciones_ventanas Iv = new Interacciones_ventanas();
+        Iv.ventanaRegistro();
+       fabricaConexion.cerrarConexion();
     }
 
     

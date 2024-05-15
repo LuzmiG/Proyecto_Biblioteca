@@ -4,8 +4,10 @@
  */
 package Consultas;
 
+import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Libro;
+import Modelo.Prestamo_libros;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,5 +74,45 @@ public class Cst_Cliente {
         } catch (SQLException e) {
             fabricaConexion.alertaNegativa("Hubo un error al mostrar la Lista de Libros" + e.toString());
         }
+    }
+    
+    public void registrarPrestamo(Prestamo_libros CPrestan){
+        try {
+            //Establezco conexxio
+            Connection conexion = fabricaConexion.getConexion();
+            // Declaro la consulta de prestamo Libros
+            String sql = "INSERT INTO prestamo_libro (fecha, periodoPrestamo, isbn, id_cliente)"
+                    + "VALUES (?, ?, ?, ?)";
+            //Ejecutar la consulta       
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setString(1, CPrestan.getFecha_prestamo());
+            sentencia.setString(2, CPrestan.getPeriodo_Prestamo());
+            sentencia.setInt(3, CPrestan.getIsbn());
+            sentencia.setInt(4, CPrestan.getId_cliente());
+             //Prosesa la consulta
+            sentencia.executeUpdate();
+            //fabricaConexion.alertaAfrimativa("Se registro correctamente El prestamo");
+            sentencia.close();
+            //insert into prestamo_libro (fecha, periodoPrestamo, isbn, id_cliente) 
+					//values('06/05/2024', '3 Dias', 1, 1)/
+                                        
+                                        
+            //----------------------------------
+            //consulta para actulizar cantidad libros
+            //String sqlActualizarInventario = "UPDATE libro SET cantidad_disponible = cantidad_disponible - 1 WHERE isbn = ?";
+            String sqlActulizar = "UPDATE libro SET cantidadDisponible = cantidadDisponible -1 WHERE isbn = ?";
+            PreparedStatement sentenciaActualizarInventario = conexion.prepareStatement(sqlActulizar);
+            sentenciaActualizarInventario.setInt(1, CPrestan.getIsbn());
+            sentenciaActualizarInventario.executeUpdate();
+            sentenciaActualizarInventario.close();        
+                                        
+                                        
+                                        
+                                        
+        } catch (SQLException e) {
+        fabricaConexion.alertaNegativa("Hubo un error al Registrar su Prestamo" + e);
+        }
+
+        
     }
 }

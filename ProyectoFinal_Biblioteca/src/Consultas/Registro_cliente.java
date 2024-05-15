@@ -30,12 +30,9 @@ public class Registro_cliente {
             Connection conexion = this.fabricaConexion.getConexion();
                                                 /*Campos a llenar                                 // indican que se proporcionaran valores especificos más adelante en el codigo.*/
             String sql = "INSERT INTO cliente (usuario, pass, privilegio, telefono, correo, nombre) VALUES (?, ?, ?, ?, ?, ?) ";
-            /*Creo el objeto PreparedStatement      ejecuta la consulta */
+            /*Creo el objeto PreparedStatement      ejecuta la consulta de SQL */
             PreparedStatement sentencia = conexion.prepareStatement(sql);
-            
-            
-            
-            
+         
             /*
             Ok,
             en la variable (sql) donde hive la consulta le asigne a los valores ? ¿ok?
@@ -44,6 +41,8 @@ public class Registro_cliente {
                          //Posicion donde se va ubicar
                                             //se le asigna el valor que se capturo/ingreso el usario //            
             sentencia.setString(1, CRegistran.getUsuario());
+                            //parametros que va remplar a ?
+                                            // valor que le estoy dando en el sengundo parametro
             sentencia.setString(2, CRegistran.getPass());
             sentencia.setString(3, CRegistran.getPrivilegio());
             sentencia.setInt(4, CRegistran.getTelefono());
@@ -51,10 +50,12 @@ public class Registro_cliente {
             sentencia.setString(6, CRegistran.getNombre());
             
             //ejecuta la consulta (sql (insert into)) que se defini previamente (como que la procesa)
+            //SI OCURRAR UN ERROR MANDA A UN ERROR
             sentencia.executeUpdate();
             
             fabricaConexion.alertaAfrimativa("Felicidades! Se registro correctamente");
             sentencia.close();
+            fabricaConexion.cerrarConexion();
         }
         catch(Exception e){
             fabricaConexion.alertaNegativa("ERROR" + e.getMessage());

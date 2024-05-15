@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -22,12 +23,12 @@
                      <children>
                         <AnchorPane layoutY="82.0" prefHeight="166.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="72.0" layoutY="5.0" prefHeight="19.0" prefWidth="57.0" text="Usuario" textAlignment="CENTER" textFill="WHITE">
+                              <Label layoutX="63.0" layoutY="5.0" prefHeight="19.0" prefWidth="75.0" text="Nombre:" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Lato Regular" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lbl_usuario" layoutX="56.0" layoutY="31.0" prefHeight="19.0" prefWidth="89.0" text="----" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Label fx:id="lbl_usuario" alignment="TOP_CENTER" layoutX="27.0" layoutY="31.0" prefHeight="19.0" prefWidth="147.0" text="----" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" wrapText="true">
                                  <font>
                                     <Font name="Lato Black" size="15.0" />
                                  </font>
@@ -37,46 +38,66 @@
                                     <Font name="Lato Regular" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lbl_idUsuario" layoutX="85.0" layoutY="83.0" prefHeight="19.0" prefWidth="46.0" text="----" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Label fx:id="lbl_idUsuario" alignment="TOP_CENTER" layoutX="43.0" layoutY="83.0" prefHeight="19.0" prefWidth="127.0" text="----" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="75.0" layoutY="102.0" prefHeight="19.0" prefWidth="51.0" text="Fecha:" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_fecha" alignment="TOP_CENTER" layoutX="52.0" layoutY="133.0" prefHeight="19.0" prefWidth="105.0" text="----" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" wrapText="true">
                                  <font>
                                     <Font name="Lato Black" size="15.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
-                        <Button fx:id="btnLibros" contentDisplay="TOP" layoutX="10.0" layoutY="397.0" mnemonicParsing="false" onAction="#cambiarForm" prefHeight="45.0" prefWidth="181.0" style="-fx-background-color: #7F9F80;" text="Libros" textAlignment="RIGHT" textFill="WHITE">
+                        <Button fx:id="btnLibros" contentDisplay="TOP" layoutX="13.0" layoutY="395.0" mnemonicParsing="false" onAction="#cambiarForm" prefHeight="45.0" prefWidth="181.0" style="-fx-background-color: #7F9F80;" text="Libros" textAlignment="RIGHT" textFill="WHITE">
                            <font>
                               <Font name="Lato Black" size="15.0" />
                            </font>
                         </Button>
-                        <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="46.0" layoutY="407.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="26.0" fitWidth="27.0" layoutX="50.0" layoutY="405.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Imagenes/book.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="btnRecom" contentDisplay="TOP" layoutX="11.0" layoutY="458.0" mnemonicParsing="false" onAction="#cambiarForm" prefHeight="45.0" prefWidth="179.0" style="-fx-background-color: #7F9F80;" text="Recomendaciones" textAlignment="RIGHT" textFill="WHITE">
+                        <Button fx:id="btnRecom" contentDisplay="TOP" layoutX="14.0" layoutY="458.0" mnemonicParsing="false" onAction="#cambiarForm" prefHeight="45.0" prefWidth="179.0" style="-fx-background-color: #7F9F80;" text="Recomendaciones" textAlignment="RIGHT" textFill="WHITE">
                            <font>
                               <Font name="Lato Black" size="15.0" />
                            </font>
                         </Button>
-                        <Line endX="68.0" endY="16.0" layoutX="118.0" layoutY="362.0" startX="-100.0" startY="16.0" stroke="WHITE" strokeWidth="2.0" />
+                        <Line endX="68.0" endY="16.0" layoutX="119.0" layoutY="365.0" startX="-100.0" startY="16.0" stroke="WHITE" strokeWidth="2.0" />
                         <Label layoutX="24.0" layoutY="48.0" text="BIENVENIDO" textFill="WHITE">
                            <font>
                               <Font name="Lato Black" size="25.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="154.0" fitWidth="157.0" layoutX="26.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="112.0" fitWidth="124.0" layoutX="44.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../Imagenes/5.png" />
                            </image>
                         </ImageView>
+                        <ImageView fitHeight="45.0" fitWidth="79.0" layoutX="22.0" layoutY="569.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Imagenes/logout.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="lbl_regresar" layoutX="76.0" layoutY="579.0" onMouseClicked="#regresarLogin" text="Regresar" textFill="WHITE">
+                           <font>
+                              <Font name="Lato Black" size="20.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </left>
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane fx:id="pnl_VerLibro" layoutX="12.0" layoutY="18.0" prefHeight="577.0" prefWidth="871.0">
+                        <AnchorPane fx:id="pnl_VerLibro" layoutX="12.0" layoutY="18.0" prefHeight="610.0" prefWidth="871.0">
                            <children>
                               <TableView fx:id="tblLibros" layoutX="37.0" layoutY="33.0" onMouseClicked="#seleccionarInfo" prefHeight="488.0" prefWidth="431.0" style="-fx-background-color: #fff; -fx-border-color: #7F9F80; -fx-border-width: 3;">
                                  <columns>
@@ -133,22 +154,22 @@
                                     <Font name="Lato Regular" size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="536.0" layoutY="467.0" prefHeight="19.0" prefWidth="108.0" text="Categoría:" wrapText="true">
+                              <Label layoutX="534.0" layoutY="421.0" prefHeight="19.0" prefWidth="108.0" text="Categoría:" wrapText="true">
                                  <font>
                                     <Font name="Lato Black" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lbl_categoria" layoutX="628.0" layoutY="467.0" prefHeight="19.0" prefWidth="87.0" text="----------------" wrapText="true">
+                              <Label fx:id="lbl_categoria" layoutX="652.0" layoutY="421.0" prefHeight="19.0" prefWidth="87.0" text="----------------" wrapText="true">
                                  <font>
                                     <Font name="Lato Regular" size="15.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="538.0" layoutY="502.0" prefHeight="19.0" prefWidth="157.0" text="Cantidad Disponible: " wrapText="true">
+                              <Label layoutX="536.0" layoutY="453.0" prefHeight="19.0" prefWidth="157.0" text="Cantidad Disponible: " wrapText="true">
                                  <font>
                                     <Font name="Lato Black" size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lbl_can" layoutX="701.0" layoutY="502.0" prefHeight="19.0" prefWidth="87.0" text="----------------" wrapText="true">
+                              <Label fx:id="lbl_can" layoutX="719.0" layoutY="453.0" prefHeight="19.0" prefWidth="87.0" text="----------------" wrapText="true">
                                  <font>
                                     <Font name="Lato Regular" size="15.0" />
                                  </font>
@@ -163,6 +184,17 @@
                                     <Font name="Lato Regular" size="15.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="536.0" layoutY="499.0" prefHeight="19.0" prefWidth="157.0" text="Dias de prestamo:" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cbxDias" layoutX="679.0" layoutY="493.0" prefHeight="31.0" prefWidth="164.0" promptText="Eliga cantidad de dias" style="-fx-border-color: #A8CD9F; -fx-background-color: #fff; -fx-border-width: 3;" />
+                              <Button fx:id="btnPrestamo" layoutX="536.0" layoutY="553.0" mnemonicParsing="false" onAction="#btnPrestamo" prefHeight="35.0" prefWidth="298.0" style="-fx-background-color: #265073;" text="Hacer prestamo" textFill="WHITE">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="pnl_Bienvenido" layoutX="143.0" layoutY="160.0" prefHeight="307.0" prefWidth="577.0" visible="false">

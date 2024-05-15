@@ -53,6 +53,8 @@ public class RegistroController implements Initializable {
     
      //Se crea una variable consulta de tipo CONSULTA_aLUMNOS
     private Registro_cliente consulta;
+    
+    private Conexion fabricaConexion;
 
     Interacciones_ventanas Iv = new Interacciones_ventanas();
     
@@ -63,15 +65,16 @@ public class RegistroController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         this.consulta = new Registro_cliente();
-      //  this.fabricaConexion = new Conexion ();
+     //   this.fabricaConexion = new Conexion ();
         
     }    
 
     @FXML
     private void lblRegresar(MouseEvent event) throws IOException {
-    //    fabricaConexion.cerrarConexion();
+       
+      //  fabricaConexion.cerrarConexion();
         Iv.ventanaLogin();
-        
+      //  fabricaConexion.cerrarConexion();
     
     }
 
@@ -87,6 +90,7 @@ public class RegistroController implements Initializable {
         cl.setNombre(txtNombre.getText());
         
         consulta.registrarCliente(cl); 
+        //fabricaConexion.cerrarConexion();
         limpiarCampos();
         Iv.ventanaCliente();
       
