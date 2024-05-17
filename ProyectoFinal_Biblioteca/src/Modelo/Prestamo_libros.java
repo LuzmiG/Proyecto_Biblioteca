@@ -16,6 +16,7 @@ public class Prestamo_libros {
     private int id_cliente;
     private String titulo;
     private String nombreCliente;
+    private String estado;
 
     public int getId_prestamo() {
         return id_prestamo;
@@ -56,6 +57,18 @@ public class Prestamo_libros {
     public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
+    
+    
     
     //-----------Estos son para mi mostrar tabla en empleado
 

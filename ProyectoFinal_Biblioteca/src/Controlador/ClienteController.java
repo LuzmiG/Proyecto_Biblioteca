@@ -228,7 +228,7 @@ public class ClienteController implements Initializable {
         
         consulta.registrarPrestamo(pl);
         
-        //-------------------------
+        /*-------------------------
         String nomU = lbl_usuario.getText(); 
         String tituloL = lbl_titulo.getText();
         String dias = cbxDias.getSelectionModel().getSelectedItem();
@@ -242,6 +242,7 @@ public class ClienteController implements Initializable {
         alert.initStyle(StageStyle.UTILITY);
         alert.showAndWait();
         //-------------------------
+        */
         cargarLibros(); 
         limpiar();
     }

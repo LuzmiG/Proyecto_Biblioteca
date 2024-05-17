@@ -83,6 +83,7 @@ foreign key (id_empleado)
 references empleado (id_empleado)
 
 insert into devolucion_prestamo (fecha, multa, descripcion_multa, id_prestamo, id_empleado)
-						values ('09/05/2024', 50, 'Dos dias de atraso', 1, 1)
-						
+						values ('09/05/2024', 50, 'Dos dias de atraso', 1, 1
+								
 select * from devolucion_prestamo
+select *  from empleado

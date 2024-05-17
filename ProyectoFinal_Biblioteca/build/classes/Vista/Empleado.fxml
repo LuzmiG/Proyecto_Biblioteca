@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -51,7 +52,7 @@
                               <Image url="@../Imagenes/add.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="btnForm_Actualizar_Inventario" contentDisplay="TOP" layoutX="8.0" layoutY="313.0" mnemonicParsing="false" onAction="#cambiarForm" prefHeight="45.0" prefWidth="189.0" style="-fx-background-color: #7F9F80;" text="Actualizar Invetario" textAlignment="RIGHT" textFill="WHITE">
+                        <Button fx:id="btnForm_ListaPrestamos" contentDisplay="TOP" layoutX="8.0" layoutY="313.0" mnemonicParsing="false" onAction="#cambiarForm" prefHeight="45.0" prefWidth="189.0" style="-fx-background-color: #7F9F80;" text="Lista  de Prestamos" textAlignment="RIGHT" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Lato Black" size="15.0" />
                            </font>
@@ -179,18 +180,47 @@
                               </Button>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pnl_ActualizarInventario" layoutX="9.0" layoutY="18.0" prefHeight="586.0" prefWidth="885.0" style="-fx-background-color: grey;" visible="false">
+                        <AnchorPane fx:id="pnl_ActualizarInventario" layoutX="14.0" layoutY="31.0" prefHeight="675.0" prefWidth="926.0" style="-fx-background-color: #fff;" visible="false">
                            <children>
-                              <Label layoutX="130.0" layoutY="171.0" text="Actualizar Inventario">
+                              <TableView fx:id="tblPrestamos" layoutX="17.0" layoutY="65.0" prefHeight="568.0" prefWidth="893.0" style="-fx-background-color: #fff; -fx-border-color: #7F9F80; -fx-border-width: 3;">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="Id_Codigo" />
+                                 </columns>
+                                 <contextMenu>
+                                    <ContextMenu fx:id="cmOpciones11" />
+                                 </contextMenu>
+                              </TableView>
+                              <Label layoutX="33.0" layoutY="23.0" text="Lista De libros prestados">
                                  <font>
-                                    <Font name="Lato Black" size="50.0" />
+                                    <Font name="Lato Bold" size="20.0" />
                                  </font>
                               </Label>
+                              <Line endX="908.0" endY="34.0" startX="269.0" startY="34.0" strokeWidth="2.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pnl_devolucionLibro" layoutX="12.0" layoutY="18.0" prefHeight="675.0" prefWidth="930.0" style="-fx-background-color: #fff;">
+                        <AnchorPane fx:id="pnl_devolucionLibro" layoutX="12.0" layoutY="18.0" prefHeight="691.0" prefWidth="930.0" style="-fx-background-color: #fff;">
                            <children>
-                              <TableView fx:id="tblPrestamos" layoutX="14.0" layoutY="72.0" prefHeight="251.0" prefWidth="868.0" style="-fx-background-color: #fff; -fx-border-color: #7F9F80; -fx-border-width: 3;">
+                              <Label layoutX="25.0" layoutY="20.0" text="Registar Devolución">
+                                 <font>
+                                    <Font name="Lato Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="658.0" layoutX="223.0" layoutY="33.0" startX="3.0" strokeWidth="2.0" />
+                              <Label layoutX="53.0" layoutY="67.0" prefHeight="19.0" prefWidth="159.0" text="Ingresar id Prestamo:">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtIdPrestamo" layoutX="236.0" layoutY="60.0" onKeyTyped="#buscarIdprestamo" prefHeight="31.0" prefWidth="179.0" promptText="Id Prestamo" style="-fx-border-color: #A8CD9F; -fx-background-color: #fff; -fx-border-width: 3;" viewOrder="5.0">
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" />
+                                 </opaqueInsets>
+                              </TextField>
+                              <Label fx:id="lblDatosPrestamo" layoutX="522.0" layoutY="90.0" prefHeight="163.0" prefWidth="354.0" text="Label" wrapText="true">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font></Label>
+                              <TableView fx:id="tblDevoluciones" layoutX="25.0" layoutY="387.0" prefHeight="291.0" prefWidth="868.0" style="-fx-background-color: #fff; -fx-border-color: #7F9F80; -fx-border-width: 3;">
                                  <columns>
                                     <TableColumn prefWidth="75.0" text="Id_Codigo" />
                                  </columns>
@@ -198,34 +228,59 @@
                                     <ContextMenu fx:id="cmOpciones1" />
                                  </contextMenu>
                               </TableView>
-                              <Label layoutX="25.0" layoutY="28.0" text="Lista De libros prestados">
+                              <Label layoutX="36.0" layoutY="343.0" text="Lista De Devoluciones">
                                  <font>
                                     <Font name="Lato Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Line endX="610.0" layoutX="260.0" layoutY="41.0" startX="3.0" strokeWidth="2.0" />
-                              <Label layoutX="25.0" layoutY="335.0" text="Registar Devolución">
+                              <Line endX="610.0" layoutX="271.0" layoutY="356.0" startX="3.0" strokeWidth="2.0" />
+                              <Label layoutX="53.0" layoutY="106.0" prefHeight="19.0" prefWidth="159.0" text="Fecha Devolucion:">
                                  <font>
-                                    <Font name="Lato Bold" size="20.0" />
+                                    <Font name="Lato Regular" size="15.0" />
                                  </font>
                               </Label>
-                              <Line endX="658.0" layoutX="223.0" layoutY="348.0" startX="3.0" strokeWidth="2.0" />
-                              <Label layoutX="25.0" layoutY="382.0" prefHeight="19.0" prefWidth="159.0" text="Ingresar id Prestamo:">
+                              <Label layoutX="53.0" layoutY="147.0" prefHeight="19.0" prefWidth="159.0" text="Multa">
                                  <font>
-                                    <Font name="Lato Black" size="15.0" />
+                                    <Font name="Lato Regular" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtIdPrestamo" layoutX="193.0" layoutY="376.0" prefHeight="31.0" prefWidth="105.0" promptText="Id Prestamo" style="-fx-border-color: #A8CD9F; -fx-background-color: #fff; -fx-border-width: 3;" viewOrder="5.0">
+                              <Label layoutX="53.0" layoutY="189.0" prefHeight="19.0" prefWidth="159.0" text="Descripción Multa">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="53.0" layoutY="232.0" prefHeight="19.0" prefWidth="159.0" text="Empleado Registrador:">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="date_fechaDevolucion" layoutX="236.0" layoutY="99.0" promptText="Seleccionar Fecha" style="-fx-border-width: 3; -fx-border-color: #A8CD9F;" />
+                              <TextField fx:id="txtMulta" layoutX="235.0" layoutY="140.0" onKeyTyped="#buscarIdprestamo" prefHeight="31.0" prefWidth="179.0" promptText="Ingresar monto" style="-fx-border-color: #A8CD9F; -fx-background-color: #fff; -fx-border-width: 3;" viewOrder="5.0">
                                  <opaqueInsets>
                                     <Insets bottom="5.0" />
                                  </opaqueInsets>
                               </TextField>
-                              <Label fx:id="lblDatosPrestamo" layoutX="25.0" layoutY="417.0" prefHeight="214.0" prefWidth="230.0" text="Label" wrapText="true" />
-                              <Button fx:id="btnBuscar" layoutX="313.0" layoutY="374.0" mnemonicParsing="false" onAction="#btnBuscar_prestamo" prefHeight="35.0" prefWidth="110.0" style="-fx-background-color: #A91D3A;" text="Buscar" textFill="WHITE">
+                              <TextField fx:id="txtDescripcionMulta" layoutX="235.0" layoutY="182.0" onKeyTyped="#buscarIdprestamo" prefHeight="31.0" prefWidth="179.0" promptText="Ingrese la descripción" style="-fx-border-color: #A8CD9F; -fx-background-color: #fff; -fx-border-width: 3;" viewOrder="5.0">
+                                 <opaqueInsets>
+                                    <Insets bottom="5.0" />
+                                 </opaqueInsets>
+                              </TextField>
+                              <ComboBox fx:id="cbxEmpleado" layoutX="235.0" layoutY="228.0" prefHeight="25.0" prefWidth="177.0" promptText="Seleccionar empleado" style="-fx-border-color: #A8CD9F; -fx-border-width: 3;" />
+                              <Button fx:id="btnGuardarDevolucion" layoutX="85.0" layoutY="276.0" mnemonicParsing="false" onAction="#btnGuardarDevolucion" prefHeight="35.0" prefWidth="298.0" style="-fx-background-color: #265073;" text="Guardar" textFill="WHITE">
                                  <font>
                                     <Font name="Lato Black" size="15.0" />
                                  </font>
                               </Button>
+                              <Label layoutX="522.0" layoutY="67.0" prefHeight="19.0" prefWidth="207.0" text="Información de prestamo">
+                                 <font>
+                                    <Font name="Lato Black" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lbl_ISBN" layoutX="697.0" layoutY="67.0" prefHeight="19.0" prefWidth="64.0" text=":">
+                                 <font>
+                                    <Font name="Lato Regular" size="15.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="pnl_Bienvenido" layoutX="133.0" layoutY="150.0" prefHeight="307.0" prefWidth="577.0" visible="false">

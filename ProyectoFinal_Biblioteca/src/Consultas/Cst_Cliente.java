@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.scene.control.ComboBox;
 
 /**
  *
@@ -80,15 +81,44 @@ public class Cst_Cliente {
         try {
             //Establezco conexxio
             Connection conexion = fabricaConexion.getConexion();
-            // Declaro la consulta de prestamo Libros
-            String sql = "INSERT INTO prestamo_libro (fecha, periodoPrestamo, isbn, id_cliente)"
-                    + "VALUES (?, ?, ?, ?)";
+            
+            //Verifico si tiene pendientes 
+            
+            
+            String sqlVpendiente = "SELECT COUNT(*) AS pendientes FROM prestamo_libro WHERE id_cliente = ? AND estado = 'pendiente'";
+            PreparedStatement sentenciaVerificarPrestamosPendientes = conexion.prepareStatement(sqlVpendiente);
+            sentenciaVerificarPrestamosPendientes.setInt(1, CPrestan.getId_cliente());
+            ResultSet resultadoPendientes = sentenciaVerificarPrestamosPendientes.executeQuery();
+            
+            if (resultadoPendientes.next() && resultadoPendientes.getInt("pendientes") > 0) {
+                // El usuario tiene préstamos pendientes
+                fabricaConexion.alertaNegativa("El usuario tiene préstamos pendientes y no puede realizar un nuevo préstamo hasta devolverlos.");
+                resultadoPendientes.close();
+                sentenciaVerificarPrestamosPendientes.close();
+                return;
+            }
+            
+            //Verifico si hay libros
+            String sqlVerificarCantidad = "SELECT cantidadDisponible FROM libro WHERE isbn = ?";
+            PreparedStatement sentenciaVerificarCantidad = conexion.prepareStatement(sqlVerificarCantidad);
+            sentenciaVerificarCantidad.setInt(1, CPrestan.getIsbn());
+            ResultSet resultado = sentenciaVerificarCantidad.executeQuery();
+
+
+            if (resultado.next()) {
+                 int cantidadDisponible = resultado.getInt("cantidadDisponible");
+                 if(cantidadDisponible > 0){
+       
+            String sql = "INSERT INTO prestamo_libro (fecha, periodoPrestamo, isbn, id_cliente, estado)"             
+                    + "VALUES (?, ?, ?, ?, ?)";
             //Ejecutar la consulta       
             PreparedStatement sentencia = conexion.prepareStatement(sql);
             sentencia.setString(1, CPrestan.getFecha_prestamo());
             sentencia.setString(2, CPrestan.getPeriodo_Prestamo());
             sentencia.setInt(3, CPrestan.getIsbn());
-            sentencia.setInt(4, CPrestan.getId_cliente());
+            sentencia.setInt(4, CPrestan.getId_cliente()); 
+                                        //probando algo diferente para no crear el get y set a ver que tal//
+            sentencia.setString(5, "pendiente");
              //Prosesa la consulta
             sentencia.executeUpdate();
             //fabricaConexion.alertaAfrimativa("Se registro correctamente El prestamo");
@@ -99,15 +129,31 @@ public class Cst_Cliente {
                                         
             //----------------------------------
             //consulta para actulizar cantidad libros
-            //String sqlActualizarInventario = "UPDATE libro SET cantidad_disponible = cantidad_disponible - 1 WHERE isbn = ?";
+            
             String sqlActulizar = "UPDATE libro SET cantidadDisponible = cantidadDisponible -1 WHERE isbn = ?";
             PreparedStatement sentenciaActualizarInventario = conexion.prepareStatement(sqlActulizar);
             sentenciaActualizarInventario.setInt(1, CPrestan.getIsbn());
             sentenciaActualizarInventario.executeUpdate();
-            sentenciaActualizarInventario.close();        
-                                        
-                                        
-                                        
+            sentenciaActualizarInventario.close();  
+            
+            
+                  fabricaConexion.alertaAfrimativa("Se registró correctamente el préstamo");
+                 }
+                 
+                 else{
+                fabricaConexion.alertaNegativa("Por el momento no contamos con mas ejemplares\n lo sentimos no podemos hacer el prestamo");
+            }   
+                 
+            }
+         
+            else{
+                  fabricaConexion.alertaNegativa("El libro con el ISBN especificado no existe");
+                    }
+            
+            
+               sentenciaVerificarCantidad.close();
+               resultado.close(); 
+                                    
                                         
         } catch (SQLException e) {
         fabricaConexion.alertaNegativa("Hubo un error al Registrar su Prestamo" + e);
@@ -115,4 +161,6 @@ public class Cst_Cliente {
 
         
     }
+    
+    
 }
