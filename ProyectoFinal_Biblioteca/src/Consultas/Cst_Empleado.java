@@ -6,6 +6,7 @@ package Consultas;
 
 import Modelo.Conexion;
 import Modelo.Devolucion_prestamo;
+import Modelo.Empleado;
 import Modelo.Libro;
 import Modelo.Prestamo_libros;
 import java.sql.Connection;
@@ -13,7 +14,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -29,6 +34,140 @@ public class Cst_Empleado extends Prestamo_libros{
         this.fabricaConexion = new Conexion();
     }
     
+    /*--------------EMPLEADOS-------------*/
+    
+    public void mostrarEmpleados(ArrayList<Empleado> listaEmpleados){
+        try {
+            Connection conexion = this.fabricaConexion.getConexion();
+            String sql = "SELECT id_empleado, usuario, pass, sueldo, horario from empleado";
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            ResultSet datos = sentencia.executeQuery();
+            while(datos.next()){
+                Empleado ep = new Empleado();
+                ep.setId_empleado(datos.getInt(1));
+                ep.setNombre(datos.getString(2));
+                ep.setPass(datos.getString(3));
+                ep.setSueldo(datos.getFloat(4));
+                ep.setHorario(datos.getString(5));
+            
+                listaEmpleados.add(ep);
+                
+            }
+            
+            sentencia.close();
+            datos.close();
+            
+        } catch (SQLException e) {
+            fabricaConexion.alertaNegativa("Hubo un error a mostrar la tabla de empleados" + e.toString());
+            
+        }
+    }
+    
+    public void agregarEmpleado(Empleado CRegistran){
+         try {
+            //Establezco Conexion
+            Connection conexion = this.fabricaConexion.getConexion();
+            //establezco/declaro consulta para sql
+            String sql = "INSERT INTO empleado (usuario, pass, privilegio, sueldo, horario)" 
+			+ "VALUES (?, ?, ?, ?, ?)";
+            //Pre-Consulta
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            //Pas los valores a mis ?
+            sentencia.setString(1, CRegistran.getNombre());
+            sentencia.setString(2, CRegistran.getPass());
+            sentencia.setString(3, CRegistran.getPrivilegio());
+            sentencia.setFloat(4, CRegistran.getSueldo());
+            sentencia.setString(5, CRegistran.getHorario());
+        
+            //Prosesa la consulta
+            sentencia.executeUpdate();
+            //Si es correcto manda su mensaje
+            fabricaConexion.alertaAfrimativa("El Usuario se registro Correctamente");
+            sentencia.close();
+            
+        }
+         catch (SQLException e) {
+            fabricaConexion.alertaNegativa("Hubo un error al Registrar " + e);
+            
+        }
+    } 
+  
+    public void editarEmpleado(Empleado CEdita){
+        try {
+            //Establezcon Conexion
+            Connection conexion = this.fabricaConexion.getConexion();
+            //Consulta
+            String sql = "UPDATE empleado SET usuario=?, pass=?, sueldo=?, horario=?"+
+                    "WHERE id_empleado=?";
+            //Pre-consulta
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            //Pas los valores a mis ?
+            sentencia.setString(1, CEdita.getNombre());
+            sentencia.setString(2, CEdita.getPass());
+            sentencia.setFloat(3, CEdita.getSueldo());
+            sentencia.setString(4, CEdita.getHorario());
+     
+            
+            //isbn
+            sentencia.setInt(5,CEdita.getId_empleado());
+            //Prosesa la consulta
+            sentencia.executeUpdate();
+            //Cierro
+            sentencia.close();
+            //afirmacion
+            fabricaConexion.alertaAfrimativa("Se edito Correctamente");
+        } catch (SQLException e) {
+            fabricaConexion.alertaNegativa("Hubo un erro al momento de editar " + e);
+        }
+    }
+    
+    public void eliminarLibro (int idEmpleado){
+        try {
+
+            
+            //alerta
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("CONFIRMACION");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Realmente desea Eliminar al Empleado ");
+            alert.initStyle(StageStyle.UTILITY);
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                            //establezco mi conexion
+            Connection conexion = this.fabricaConexion.getConexion();
+            //consulta
+            String sql = "DELETE FROM empleado WHERE id_empleado=?";
+            //Pre consulta
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            //asino mi valor a ?
+            sentencia.setInt(1, idEmpleado);
+            //ejectu la consulta
+            sentencia.executeUpdate();
+            //cierro
+            sentencia.close();
+            
+            fabricaConexion.alertaAfrimativa("Se elimino Correctamente");
+
+            } else {
+                
+                fabricaConexion.alertaNegativa("No se puede eliminar ");
+
+            }  
+        
+        } catch (SQLException e) {
+        fabricaConexion.alertaNegativa("Hubo un erro al momento de Eliminar " + e);
+
+
+        }
+        
+    }
+    
+    
+    
+    /* ---------- PRESTAMOS ------------------*/
+      
     //---------Mostrar los datos del libro en la tabla
     public void mostrarPrestamos(ArrayList<Prestamo_libros> listaPrestamos){
          try {
@@ -68,8 +207,10 @@ public class Cst_Empleado extends Prestamo_libros{
         
                 
                 listaPrestamos.add(pl);
+                
+            
             }
-                datos.close();
+                    datos.close();
                 sentencia.close();
             
             
@@ -77,6 +218,7 @@ public class Cst_Empleado extends Prestamo_libros{
             fabricaConexion.alertaNegativa("Hubo un error al mostrar la Lista de Prestamos" + e.toString());
         }
     }
+    
     
      public Prestamo_libros obtenerPrestamoPorId(int id) {
         

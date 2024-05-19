@@ -8,6 +8,7 @@ import Consultas.Cst_Cliente;
 import Consultas.Cst_Empleado;
 import Consultas.Cst_libro;
 import Modelo.Devolucion_prestamo;
+import Modelo.Empleado;
 import Modelo.Libro;
 import Modelo.Prestamo_libros;
 import java.io.IOException;
@@ -86,16 +87,20 @@ public class EmpleadoController implements Initializable {
     private ContextMenu cmOpciones;
 
     private Cst_libro consulta;
-    private Cst_Empleado consultaD;
+    private Cst_Empleado consultaD = new Cst_Empleado();
     
     //Opciones pARA MI CONTExt menu
     private Libro opcContex;
+    
+    private Empleado opcContex_Emp;
+    
     @FXML
     private Button btnExportar_libros;
     ///variabel para mostra en tablas y serializar
     ArrayList<Libro> lista = new ArrayList();
     ArrayList<Prestamo_libros> listaPrestamos = new ArrayList();
     ArrayList<Devolucion_prestamo> listaDevolucion = new ArrayList();
+    ArrayList<Empleado> listaEmpleado = new ArrayList();
     
     
     @FXML
@@ -141,21 +146,32 @@ public class EmpleadoController implements Initializable {
     @FXML
     private TextField txtPass_Empleado;
     @FXML
-    private TextField txtAñoPublicacion1;
-    @FXML
     private Button btnGuardar_Empleado;
     @FXML
     private Button btnExportar_libros1;
     @FXML
-    private TableView<?> tbl_Empleados;
-    @FXML
-    private ContextMenu cmOpciones2;
+    private TableView<Empleado> tbl_Empleados;
     @FXML
     private AnchorPane pnl_restaurar;
+    @FXML
+    private TextField txtSueldo_Empleado;
+    @FXML
+    private ComboBox<String> cbxHorario_empleado;
+    @FXML
+    private ContextMenu cmOpciones_Empleado;
+    @FXML
+    private Button btnForm_ListaUsuarios;
+    @FXML
+    private AnchorPane pnl_listaUsuaro;
     /**
      * txtTitulo txtAutor txtAñoPublicacion txtEditorial txtDescripcion
      * txtCantidad cbxCategoria
-     *
+     * 
+     * /-------------------
+     *txtNombre_Empleado
+     * txtPass_Empleado
+     * txtSueldo_Empleado
+     * cbxHorario_empleado
      */
     
         
@@ -165,7 +181,7 @@ public class EmpleadoController implements Initializable {
         try {
             //conexion
             this.consulta = new Cst_libro();
-            this.consultaD = new Cst_Empleado();
+         // this.consultaD = new Cst_Empleado();
             consultaD.llenarComboEmpleado(cbxEmpleado);
             //cargar tabla Libros
             cargarLibros();
@@ -173,13 +189,19 @@ public class EmpleadoController implements Initializable {
             cargarPrestamos();
             //cargar tabla devoluciones
             CargarDevoluciones();
+            //cargar tabla empleados
+            cargarEmpleados();
             //---------------------------------
             // Combo Box
             String[] categorias = {"Romance", "Fantasía", "Ciencia ficción", "clásica", "Misterio", "Histórica", "Autoayuda", "Infantil", "Poesía", "Biografías"};
             ObservableList<String> items = FXCollections.observableArrayList(categorias);
             cbxCategoria.setItems(items);
+               // Combo Box EMPLADOS
+            String[] horario = {"Lun-Vie", "Sab-Dom"};
+            ObservableList<String> items2 = FXCollections.observableArrayList(horario);
+            cbxHorario_empleado.setItems(items2);
             //------------------------------------
-            //Context Menu
+            //Context Menu LIBRO
             MenuItem itemEditar = new MenuItem("Editar");
             MenuItem itemEliminar = new MenuItem("Eliminar");
             //se lo asigno a mi menuitem
@@ -188,6 +210,20 @@ public class EmpleadoController implements Initializable {
             tblLibros.setContextMenu(cmOpciones);
             itemEditar.setOnAction(event -> edicionLibro());
             itemEliminar.setOnAction(event -> eliminarLibro());
+            
+            //---------------------------------------
+            //Context MENU EMPLEADO
+            MenuItem itemEditar_Empleado = new MenuItem("Editar");
+            MenuItem itemEliminar_Empleado = new MenuItem("Eliminar");
+            
+            cmOpciones_Empleado.getItems().addAll(itemEditar_Empleado, itemEliminar_Empleado);
+            //y le digo donde los quiero
+            tbl_Empleados.setContextMenu(cmOpciones_Empleado);
+            itemEditar_Empleado.setOnAction(event -> edicionEmpleado());
+            itemEliminar_Empleado.setOnAction(event -> eliminarEmpleado());
+            
+            
+            
         } catch (SQLException ex) {
             Logger.getLogger(EmpleadoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -241,6 +277,9 @@ public class EmpleadoController implements Initializable {
     }
 
     
+    
+    /*----------------- L I B R O -------------------------*/
+    
     //--------------------CONTEXT MENU
     private void edicionLibro() {
         int index = tblLibros.getSelectionModel().getSelectedIndex();
@@ -273,10 +312,7 @@ public class EmpleadoController implements Initializable {
       cargarLibros();
     }
     
-    
-    
-    
-/**
+    /**
      * txtTitulo txtAutor txtAñoPublicacion txtEditorial txtDescripcion
      * txtCantidad cbxCategoria
      *
@@ -318,7 +354,7 @@ public class EmpleadoController implements Initializable {
 
         
     }
-
+    
     public void cargarLibros() {
         tblLibros.getItems().clear();
         tblLibros.getColumns().clear();
@@ -365,9 +401,7 @@ public class EmpleadoController implements Initializable {
         //son objetos que representan las columnas de la tabla.
         tblLibros.getColumns().addAll(isbndCol, tituloCol, autorCol, anioCol, editorialCol, descripCol, canCol, categoriaCol);
     }
-  
-
-    @FXML
+      @FXML
     private void btnExportar_libros(ActionEvent event) {
          //Creo un ArrayLIST DE tipo Libro
         //ArrayList<Libro> lista = new ArrayList();
@@ -376,7 +410,6 @@ public class EmpleadoController implements Initializable {
         consulta.serializarTabla(lista);
     
     }
-    
     
     public void limpiar() {
         
@@ -390,18 +423,21 @@ public class EmpleadoController implements Initializable {
         cbxCategoria.getSelectionModel().select("Eliga la categoria");
 
     }
+
+
     
-    /*cARRGAR PRESTAMOS*/
-        public void cargarPrestamos() {
+    /*---------------P R E S T A M O S  ----------------------*/
+ /*cARRGAR PRESTAMOS*/
+    public void cargarPrestamos() {
         tblPrestamos.getItems().clear();
         tblPrestamos.getColumns().clear();
-        
+
         Cst_Empleado consultaEmp = new Cst_Empleado();
-        
+
         consultaEmp.mostrarPrestamos(listaPrestamos);
         // Creo un ObservableList a partir de la lista de libros
         ObservableList<Prestamo_libros> datos = FXCollections.observableArrayList(listaPrestamos);
-        
+
         //Columna ID se crea una nueva comoluma de tabla
         //Encabezado de mi tabla
         TableColumn idPCol = new TableColumn("Id Prestamo");
@@ -435,8 +471,71 @@ public class EmpleadoController implements Initializable {
         //son objetos que representan las columnas de la tabla.
         tblPrestamos.getColumns().addAll(idPCol, FechaCol, isbnCol, tituloCol, idCCol, nomCCol, diasCol, estadoCol);
     }
+
+    private void btnBuscar_prestamo(ActionEvent event) {
+        try {
+            //this.consultaPrestamo = new Cst_Empleado();
+            int idPrestamo = Integer.parseInt(txtIdPrestamo.getText());
+            Prestamo_libros prestamo = consultaPrestamo.obtenerPrestamoPorId(idPrestamo);
+
+            //  prestamo.obtenerPrestamoPorId(idPrestamo);
+            if (prestamo != null) {
+                mostrarDatosPrestamo(prestamo);
+                //verificarMulta(prestamo);
+            } else {
+                lblDatosPrestamo.setText("Préstamo no encontrado.");
+                // lblMulta.setText("");
+            }
+        } catch (NumberFormatException e) {
+            lblDatosPrestamo.setText("ID de préstamo inválido.");
+            //  lblMulta.setText("");
+        } catch (Exception e) {
+            lblDatosPrestamo.setText("Error al buscar el préstamo.");
+            //   lblMulta.setText("");
+        }
+
+    }
+
+    private void mostrarDatosPrestamo(Prestamo_libros prestamo) {
+        lbl_ISBN.setText(String.valueOf(prestamo.getIsbn()));
+        lblDatosPrestamo.setText(
+                "ID Prestamo: " + prestamo.getId_prestamo() + "\n"
+                + "Cliente: " + prestamo.getNombreCliente() + "\n"
+                + "ISBN: " + prestamo.getIsbn() + "\n"
+                + "Libro: " + prestamo.getTitulo() + "\n"
+                + "Fecha de Préstamo: " + prestamo.getFecha_prestamo() + "\n"
+                + "Fecha de Entrega en: " + prestamo.getPeriodo_Prestamo()
+        );
+    }
+
+    @FXML
+    private void buscarIdprestamo(KeyEvent event) {
+        try {
+            this.consultaPrestamo = new Cst_Empleado();
+            int idPrestamo = Integer.parseInt(txtIdPrestamo.getText());
+            Prestamo_libros prestamo = consultaPrestamo.obtenerPrestamoPorId(idPrestamo);
+
+            //  prestamo.obtenerPrestamoPorId(idPrestamo);
+            if (prestamo != null) {
+                mostrarDatosPrestamo(prestamo);
+                //verificarMulta(prestamo);
+            } else {
+                lblDatosPrestamo.setText("Préstamo no encontrado.");
+                // lblMulta.setText("");
+            }
+        } catch (NumberFormatException e) {
+            lblDatosPrestamo.setText("ID de préstamo inválido.");
+            //  lblMulta.setText("");
+        } catch (Exception e) {
+            lblDatosPrestamo.setText("Error al buscar el préstamo.");
+            //   lblMulta.setText("");
+        }
+
+    }
+
+
+    /*--------------- D E V O L U C I O N E S  ----------------------*/       
     
-        
     public void CargarDevoluciones(){
         tblDevoluciones.getItems().clear();
         tblDevoluciones.getColumns().clear();
@@ -482,81 +581,9 @@ public class EmpleadoController implements Initializable {
         //son objetos que representan las columnas de la tabla.
         tblDevoluciones.getColumns().addAll(idDCol, FechaCol, multaCol, desMultaCol, idPCol, isbnCol, tituloCol, clienteCol, empleadoCol);
    
-    }  
+    } 
     
-    @FXML
-    private void regresarLogin(MouseEvent event) throws IOException {
-        Interacciones_ventanas Iv = new Interacciones_ventanas();
-        Iv.ventanaLogin();
-    }
-
-    private void btnBuscar_prestamo(ActionEvent event) {
-        try {
-        //this.consultaPrestamo = new Cst_Empleado();
-        int idPrestamo = Integer.parseInt(txtIdPrestamo.getText());
-       Prestamo_libros prestamo = consultaPrestamo.obtenerPrestamoPorId(idPrestamo);
-
-        
-      //  prestamo.obtenerPrestamoPorId(idPrestamo);
-
-        if (prestamo != null) {
-            mostrarDatosPrestamo(prestamo);
-           //verificarMulta(prestamo);
-        } else {
-            lblDatosPrestamo.setText("Préstamo no encontrado.");
-           // lblMulta.setText("");
-        }
-    } catch (NumberFormatException e) {
-        lblDatosPrestamo.setText("ID de préstamo inválido.");
-      //  lblMulta.setText("");
-    } catch (Exception e) {
-        lblDatosPrestamo.setText("Error al buscar el préstamo.");
-     //   lblMulta.setText("");
-    }
-        
-    }
-    
-    private void mostrarDatosPrestamo(Prestamo_libros prestamo) {
-        lbl_ISBN.setText(String.valueOf(prestamo.getIsbn()));
-        lblDatosPrestamo.setText(
-            "ID Prestamo: " + prestamo.getId_prestamo()+ "\n" +
-            "Cliente: " + prestamo.getNombreCliente()+ "\n" +
-            "ISBN: " + prestamo.getIsbn()+ "\n" +
-            "Libro: " + prestamo.getTitulo()+ "\n" +
-            "Fecha de Préstamo: " + prestamo.getFecha_prestamo()+ "\n" +
-            "Fecha de Entrega en: " + prestamo.getPeriodo_Prestamo()
-  
-        );
-    }
-
-    @FXML
-    private void buscarIdprestamo(KeyEvent event) {
-          try {
-        this.consultaPrestamo = new Cst_Empleado();
-        int idPrestamo = Integer.parseInt(txtIdPrestamo.getText());
-       Prestamo_libros prestamo = consultaPrestamo.obtenerPrestamoPorId(idPrestamo);
-
-        
-      //  prestamo.obtenerPrestamoPorId(idPrestamo);
-
-        if (prestamo != null) {
-            mostrarDatosPrestamo(prestamo);
-           //verificarMulta(prestamo);
-        } else {
-            lblDatosPrestamo.setText("Préstamo no encontrado.");
-           // lblMulta.setText("");
-        }
-    } catch (NumberFormatException e) {
-        lblDatosPrestamo.setText("ID de préstamo inválido.");
-      //  lblMulta.setText("");
-    } catch (Exception e) {
-        lblDatosPrestamo.setText("Error al buscar el préstamo.");
-     //   lblMulta.setText("");
-    }
-        
-    }
-
-    @FXML
+        @FXML
     private void btnGuardarDevolucion(ActionEvent event) {
         tblLibros.getItems().clear();
         tblDevoluciones.getItems().clear();
@@ -581,21 +608,186 @@ public class EmpleadoController implements Initializable {
         
     }
     
-    public void limpiarDevolucion(){
+        public void limpiarDevolucion(){
         lblDatosPrestamo.setText("");
         lbl_ISBN.setText("");
         txtIdPrestamo.setText("");
         txtMulta.setText("");
         txtDescripcionMulta.setText("");
-     
 
        // cbxEmpleado.getSelectionModel().select(Integer.SIZE);
 
     }
-
-    @FXML
-    private void btnGuardar_Empleado(ActionEvent event) {
+        
+    /*--------------- E M P L E A D O S ----------------------*/    
+    
+    public void cargarEmpleados(){
+        tbl_Empleados.getItems().clear();
+        tbl_Empleados.getColumns().clear();
+        
+        Cst_Empleado consultaEmp = new Cst_Empleado();
+        
+        consultaEmp.mostrarEmpleados(listaEmpleado);
+        // Creo un ObservableList a partir de la lista de libros
+        ObservableList<Empleado> datos = FXCollections.observableArrayList(listaEmpleado);
+        
+        //Columna ID se crea una nueva comoluma de tabla
+        //Encabezado Empleado
+        TableColumn idPCol = new TableColumn("Id Empleado");
+        //el identificardr de la variable que se encuentra en la la cles Prestamo_libro
+        idPCol.setCellValueFactory(new PropertyValueFactory("id_empleado"));
+        //columna NOMBRE
+        TableColumn nomCol = new TableColumn("Nombre del Empleado");
+        nomCol.setCellValueFactory(new PropertyValueFactory("nombre"));
+        //Columna PASS
+        TableColumn passCol = new TableColumn("Contraseña");
+        passCol.setCellValueFactory(new PropertyValueFactory("pass"));
+        //Columna sueldo    
+        TableColumn sueldoCol = new TableColumn("Sueldo");
+        sueldoCol.setCellValueFactory(new PropertyValueFactory("sueldo"));
+        //Columan ID CLIENTE
+        TableColumn hCCol = new TableColumn("Horario");
+        hCCol.setCellValueFactory(new PropertyValueFactory("horario"));
+        
+        tbl_Empleados.setItems(datos);
+        
+        tbl_Empleados.getColumns().addAll(idPCol, nomCol, passCol, sueldoCol, hCCol);
     }
+    
+     private void edicionEmpleado() {
+        int index = tbl_Empleados.getSelectionModel().getSelectedIndex();
+        opcContex_Emp = tbl_Empleados.getItems().get(index);
+      
+        txtNombre_Empleado.setText(opcContex_Emp.getNombre());
+        txtPass_Empleado.setText(opcContex_Emp.getPass());
+        
+        txtSueldo_Empleado.setText(String.valueOf(opcContex_Emp.getSueldo()));
+      
+        cbxHorario_empleado.getSelectionModel().select(opcContex_Emp.getHorario());
+      btnGuardar.setDisable(false);  
+    }
+    
+    private void eliminarEmpleado(){
+        
+        int index = tbl_Empleados.getSelectionModel().getSelectedIndex();
+      Empleado eliminarEmp = tbl_Empleados.getItems().get(index);
+      consultaD.eliminarLibro(eliminarEmp.getId_empleado());
+      cargarEmpleados();
+      
+    }
+    
+    
+     @FXML
+    private void btnGuardar_Empleado(ActionEvent event) {
+                   
+         if (opcContex_Emp != null) {
+
+            tbl_Empleados.getItems().clear();
+
+             opcContex_Emp.setNombre(txtNombre_Empleado.getText());
+             opcContex_Emp.setPass(txtPass_Empleado.getText());
+
+             //   opcContex_Emp.setSueldo(Float.parseFloat(txtSueldo_Empleado.getText()));
+             float sueldo = Float.parseFloat(txtSueldo_Empleado.getText());
+             opcContex_Emp.setSueldo(sueldo);
+
+             // txtSueldo_Empleado.setText(String.valueOf(sueldo));
+             opcContex_Emp.setHorario(cbxHorario_empleado.getSelectionModel().getSelectedItem());
+             consultaD.editarEmpleado(opcContex_Emp);
+             limpiarEmpleado();
+             cargarEmpleados();
+
+        }
+        
+        else{
+             tbl_Empleados.getItems().clear();;
+             Empleado emp = new Empleado();
+             emp.setNombre(txtNombre_Empleado.getText());
+             emp.setPass(txtPass_Empleado.getText());
+             emp.setSueldo(Float.parseFloat(txtSueldo_Empleado.getText()));
+             emp.setHorario(cbxHorario_empleado.getSelectionModel().getSelectedItem());
+
+             consultaD.agregarEmpleado(emp);
+             limpiarEmpleado();
+             cargarEmpleados();
+            }
+       
+    }
+    
+    public void limpiarEmpleado(){
+     tbl_Empleados.getItems().clear();
+        tbl_Empleados.getColumns().clear();
+        
+  
+     txtNombre_Empleado.setText("");
+     txtPass_Empleado.setText("");
+     txtSueldo_Empleado.setText("");
+     cbxCategoria.getSelectionModel().select("Eliga la categoria");
+    }
+    
+       /*----------------- USUARIOS -------------------------*/
+    
+    public void cargarUsuarios() {
+        tblLibros.getItems().clear();
+        tblLibros.getColumns().clear();
+
+        //Creo un ArrayLIST DE tipo Libro
+       ArrayList<Libro> lista = new ArrayList();
+        //llamo a mi metodo mostrarLibro
+        consulta.mostrarLibros(lista);
+        // Creo un ObservableList a partir de la lista de libros
+        ObservableList<Libro> datos = FXCollections.observableArrayList(lista);
+        //Columna ID se crea una nueva comoluma de tabla
+        //Encabezado de mi tabla
+        TableColumn isbndCol = new TableColumn("ISBN");
+        //el identificardr de la variable que se encuentra en la la cles CAlumno
+        isbndCol.setCellValueFactory(new PropertyValueFactory("isbn"));
+
+        //isbn, titulo, autor, anioPublicacion, editorial, descripcion, cantidadDisponible, categoria
+        //Columna Titulo
+        TableColumn tituloCol = new TableColumn("TITULO");
+        tituloCol.setCellValueFactory(new PropertyValueFactory("titulo"));
+        //Columna Autor
+        TableColumn autorCol = new TableColumn("AUTOR");
+        autorCol.setCellValueFactory(new PropertyValueFactory("autor"));
+        //Columna año de puclicacion
+        TableColumn anioCol = new TableColumn("Año Publicacion");
+        anioCol.setCellValueFactory(new PropertyValueFactory("anioPublicacion"));
+        //Columan Editorial
+        TableColumn editorialCol = new TableColumn("EDITORIAL");
+        editorialCol.setCellValueFactory(new PropertyValueFactory("editorial"));
+        //Descripcion
+        TableColumn descripCol = new TableColumn("DESCRIPCION");
+        descripCol.setCellValueFactory(new PropertyValueFactory("descripcion"));
+        descripCol.setResizable(false);
+        //Cantidad De libros
+        TableColumn canCol = new TableColumn("CANTIDAD");
+        canCol.setCellValueFactory(new PropertyValueFactory("cantidadDisponible"));
+        //categoria
+        TableColumn categoriaCol = new TableColumn("CATEGORIA");
+        categoriaCol.setCellValueFactory(new PropertyValueFactory("categoria"));
+        //Aqui es donde dice que los datos(conjunto de datos) se mostraran en la tablaLibros
+        tblLibros.setItems(datos);
+
+        //construir las columnas
+        //son objetos que representan las columnas de la tabla.
+        tblLibros.getColumns().addAll(isbndCol, tituloCol, autorCol, anioCol, editorialCol, descripCol, canCol, categoriaCol);
+    }
+    
+    @FXML
+    private void regresarLogin(MouseEvent event) throws IOException {
+        Interacciones_ventanas Iv = new Interacciones_ventanas();
+        Iv.ventanaLogin();
+    }
+
+
+    
+
+
+    
+
+
+   
     
 }
         

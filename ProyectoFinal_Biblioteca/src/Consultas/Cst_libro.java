@@ -171,11 +171,15 @@ public class Cst_libro {
 
             } else {
                 
+                fabricaConexion.alertaNegativa("No se puede eliminar ");
 
             }
         
         
-        } catch (Exception e) {
+        } catch (SQLException e) {
+        fabricaConexion.alertaNegativa("Hubo un erro al momento de Eliminar " + e);
+
+
         }
         
     }

@@ -98,8 +98,10 @@ public class Verificacion_Usuario {
                         y ya aqui obtengo mi controlador de la ventana cliente y luego mjuestro las credenciales
                         */
                         clienteController.mostrarCredenciales(cliente.getId(), cliente.getNombre());
+                    
                     } else if (rol.equals("empleado")) {
-
+                        
+                        fabricaConexion.cerrarConexion();
                         Iv.ventanaEmpleado();
                     }
                 }

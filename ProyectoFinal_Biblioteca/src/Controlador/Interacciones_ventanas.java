@@ -53,6 +53,7 @@ public class Interacciones_ventanas {
     }
     
     public void ventanaEmpleado() throws IOException{
+        fabricaConexion.cerrarConexion();
         Parent vistaEmpleado = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/vista/Empleado.FXML")));   
         Scene escena = new Scene(vistaEmpleado);
         stage.initModality(Modality.APPLICATION_MODAL);
