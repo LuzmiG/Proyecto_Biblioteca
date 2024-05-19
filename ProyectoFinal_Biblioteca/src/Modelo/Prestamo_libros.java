@@ -8,14 +8,14 @@ package Modelo;
  *
  * @author Luzmi
  */
-public class Prestamo_libros {
+public class Prestamo_libros extends Libro {
     private int id_prestamo;
     private String fecha_prestamo;
     private String periodo_Prestamo;
-    private int isbn;
+ //   private int isbn;
     private int id_cliente;
-    private String titulo;
-    private String nombreCliente;
+   // private String titulo;
+   private String nombreCliente;
     private String estado;
 
     public int getId_prestamo() {
@@ -42,14 +42,14 @@ public class Prestamo_libros {
         this.periodo_Prestamo = periodo_Prestamo;
     }
 
-    public int getIsbn() {
+   /* public int getIsbn() {
         return isbn;
     }
 
     public void setIsbn(int isbn) {
         this.isbn = isbn;
     }
-
+*/
     public int getId_cliente() {
         return id_cliente;
     }
@@ -72,14 +72,14 @@ public class Prestamo_libros {
     
     //-----------Estos son para mi mostrar tabla en empleado
 
-    public String getTitulo() {
+   /* public String getTitulo() {
         return titulo;
     }
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
+*/
     public String getNombreCliente() {
         return nombreCliente;
     }
@@ -87,7 +87,7 @@ public class Prestamo_libros {
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
-    
+   
     
     
 }

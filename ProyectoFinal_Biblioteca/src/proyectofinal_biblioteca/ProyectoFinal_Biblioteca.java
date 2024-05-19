@@ -29,7 +29,7 @@ public class ProyectoFinal_Biblioteca extends Application {
         try{
             
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(ProyectoFinal_Biblioteca.class.getResource("/Vista/Login.fxml"));
+            loader.setLocation(ProyectoFinal_Biblioteca.class.getResource("/Vista/Empleado.fxml"));
             Pane ventana = (Pane) loader.load();
             
             Scene scene = new Scene(ventana);

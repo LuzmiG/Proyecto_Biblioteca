@@ -19,7 +19,7 @@ import javafx.scene.control.ComboBox;
  *
  * @author Luzmi
  */
-public class Cst_Empleado {
+public class Cst_Empleado extends Prestamo_libros{
     //variable mpara establecer conexion
     private Conexion fabricaConexion;
    
@@ -61,6 +61,7 @@ public class Cst_Empleado {
                 pl.setIsbn(datos.getInt(3));
                 pl.setTitulo(datos.getString(4));
                 pl.setId_cliente(datos.getInt(5));
+               
                 pl.setNombreCliente(datos.getString(6));
                 pl.setPeriodo_Prestamo(datos.getString(7));
                 pl.setEstado(datos.getString(8));
@@ -150,7 +151,7 @@ public class Cst_Empleado {
                 dv.setId_prestamo(datos.getInt(5));
                 dv.setIsbn(datos.getInt(6));
                 dv.setTitulo(datos.getString(7));
-                dv.setNombre_cl(datos.getString(8));
+                dv.setNombreCliente(datos.getString(8));
                 dv.setNombre_emp(datos.getString(9));
                 
         

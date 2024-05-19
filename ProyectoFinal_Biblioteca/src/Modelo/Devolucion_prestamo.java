@@ -8,18 +8,19 @@ package Modelo;
  *
  * @author Luzmi
  */
-public class Devolucion_prestamo {
+public class Devolucion_prestamo extends Prestamo_libros{
     
    private int id_devolucion;
    private String fecha;
    private int multa;
    private String descripcion_multa;
    private int id_prestamo;
-   private int isbn;
+ /*  private int isbn;
      private String titulo;
    private String nombre_cl;
+ */  
    private String nombre_emp;
-     
+   
    private int id_empleado;
    
  
@@ -86,7 +87,7 @@ public class Devolucion_prestamo {
     }
     /*Estos son para mostrar en mi tabala devoluciones*/
 
-    public int getIsbn() {
+  /*  public int getIsbn() {
         return isbn;
     }
 
@@ -111,7 +112,7 @@ public class Devolucion_prestamo {
     public void setNombre_cl(String nombre_cl) {
         this.nombre_cl = nombre_cl;
     }
-
+*/
     public String getNombre_emp() {
         return nombre_emp;
     }

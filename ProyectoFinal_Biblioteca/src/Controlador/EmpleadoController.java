@@ -130,6 +130,28 @@ public class EmpleadoController implements Initializable {
     private Button btnGuardarDevolucion;
     @FXML
     private Label lbl_ISBN;
+    @FXML
+    private Button btnForm_AgregarEmpleado;
+    @FXML
+    private Button btnForm_RestaurarSistema;
+    @FXML
+    private AnchorPane pnl_Empleado;
+    @FXML
+    private TextField txtNombre_Empleado;
+    @FXML
+    private TextField txtPass_Empleado;
+    @FXML
+    private TextField txtAñoPublicacion1;
+    @FXML
+    private Button btnGuardar_Empleado;
+    @FXML
+    private Button btnExportar_libros1;
+    @FXML
+    private TableView<?> tbl_Empleados;
+    @FXML
+    private ContextMenu cmOpciones2;
+    @FXML
+    private AnchorPane pnl_restaurar;
     /**
      * txtTitulo txtAutor txtAñoPublicacion txtEditorial txtDescripcion
      * txtCantidad cbxCategoria
@@ -180,18 +202,42 @@ public class EmpleadoController implements Initializable {
             pnl_ActualizarInventario.setVisible(false);
             pnl_devolucionLibro.setVisible(false);
             pnl_Bienvenido.setVisible(false);
+            pnl_Empleado.setVisible(false);
+            pnl_restaurar.setVisible(false);
             
         } else if (event.getSource() == btnForm_ListaPrestamos) {
             pnl_AgregarLibro.setVisible(false);
             pnl_ActualizarInventario.setVisible(true);
             pnl_devolucionLibro.setVisible(false);
             pnl_Bienvenido.setVisible(false);
+             pnl_Empleado.setVisible(false);
+            pnl_restaurar.setVisible(false);
+            
         } else if (event.getSource() == btnFormRegistar_Devolucion) {
             pnl_AgregarLibro.setVisible(false);
             pnl_ActualizarInventario.setVisible(false);
             pnl_devolucionLibro.setVisible(true);
             pnl_Bienvenido.setVisible(false);
+             pnl_Empleado.setVisible(false);
+            pnl_restaurar.setVisible(false);
         }
+        else if (event.getSource() == btnForm_AgregarEmpleado) {
+            pnl_AgregarLibro.setVisible(false);
+            pnl_ActualizarInventario.setVisible(false);
+            pnl_devolucionLibro.setVisible(false);
+            pnl_Bienvenido.setVisible(false);
+             pnl_Empleado.setVisible(true);
+            pnl_restaurar.setVisible(false);
+        }
+          else if (event.getSource() == btnForm_RestaurarSistema) {
+            pnl_AgregarLibro.setVisible(false);
+            pnl_ActualizarInventario.setVisible(false);
+            pnl_devolucionLibro.setVisible(false);
+            pnl_Bienvenido.setVisible(false);
+             pnl_Empleado.setVisible(false);
+            pnl_restaurar.setVisible(true);
+        }
+        
     }
 
     
@@ -425,7 +471,7 @@ public class EmpleadoController implements Initializable {
         tituloCol.setCellValueFactory(new PropertyValueFactory("titulo"));
         //columna nombreCliente
         TableColumn clienteCol = new TableColumn("Cliente");
-        clienteCol.setCellValueFactory(new PropertyValueFactory("nombre_cl"));
+        clienteCol.setCellValueFactory(new PropertyValueFactory("nombreCliente"));
         //nombre empleado
         TableColumn empleadoCol = new TableColumn("Empleado");
         empleadoCol.setCellValueFactory(new PropertyValueFactory("nombre_emp"));
@@ -545,6 +591,10 @@ public class EmpleadoController implements Initializable {
 
        // cbxEmpleado.getSelectionModel().select(Integer.SIZE);
 
+    }
+
+    @FXML
+    private void btnGuardar_Empleado(ActionEvent event) {
     }
     
 }
