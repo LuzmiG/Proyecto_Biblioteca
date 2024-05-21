@@ -4,17 +4,20 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Luzmi
  */
-public class Cliente {
+public class Cliente implements Serializable, Comparable<Cliente>{
     private int id;
     private String usuario;
     private String pass;
     private String privilegio;
     private int telefono;
     private String correo;
+    private String nombre;
 
     public String getNombre() {
         return nombre;
@@ -23,7 +26,6 @@ public class Cliente {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    private String nombre;
 
     public int getId() {
         return id;
@@ -71,6 +73,16 @@ public class Cliente {
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "id=" + id + ", usuario=" + usuario + ", pass=" + pass + ", privilegio=" + privilegio + ", telefono=" + telefono + ", correo=" + correo + ", nombre=" + nombre + '}';
+    }
+    
+    @Override
+    public int compareTo(Cliente otroCliente) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

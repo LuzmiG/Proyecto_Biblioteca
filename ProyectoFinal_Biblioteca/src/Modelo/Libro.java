@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Luzmi
  */
-public class Libro implements Serializable {
+public class Libro implements Serializable, Comparable<Libro> {
     //isbn, titulo, autor, anioPublicacion, editorial, descripcion, cantidadDisponible, categoria
    private int isbn;
    private String titulo;
@@ -88,6 +88,13 @@ public class Libro implements Serializable {
     @Override
     public String toString() {
         return "Libro{" + "isbn=" + isbn + ", titulo=" + titulo + ", autor=" + autor + ", anioPublicacion=" + anioPublicacion + ", editorial=" + editorial + ", descripcion=" + descripcion + ", cantidadDisponible=" + cantidadDisponible + ", categoria=" + categoria + '}';
+    }
+
+    @Override
+    public int compareTo(Libro otroLibro) {
+        
+        return Integer.compare(this.isbn, otroLibro.getIsbn());
+     
     }
     
     

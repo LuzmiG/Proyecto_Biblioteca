@@ -4,9 +4,12 @@
  */
 package Consultas;
 
+import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Libro;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -56,7 +59,7 @@ public class Cst_libro {
             //Prosesa la consulta
             sentencia.executeUpdate();
             //Si es correcto manda su mensaje
-            fabricaConexion.alertaAfrimativa("El Libro se registro Correctamente");
+         //   fabricaConexion.alertaAfrimativa("El Libro se registro Correctamente");
             sentencia.close();
             
         } catch (SQLException e) {
@@ -192,7 +195,8 @@ public class Cst_libro {
             
             objSalida.writeObject(listaLibros);
             //System.out.println("Se exportaron correctamente");
-            fabricaConexion.alertaAfrimativa("Se exportaron correctamente");
+           
+            fabricaConexion.alertaAfrimativa("Se exportaron correctamente --LIBROS--");
             objSalida.close();
         }
         catch(IOException e){
@@ -201,5 +205,91 @@ public class Cst_libro {
     
     }
     
-    
+       public ArrayList<Libro> deserializarTablaLibros() {
+    ArrayList<Libro> listaLibro = new ArrayList<>();
+    Path ruta = Paths.get("Lista de Libros.txt");
+
+    try {
+        InputStream flujoEntrada = Files.newInputStream(ruta);
+        ObjectInputStream objEntrada = new ObjectInputStream(flujoEntrada);
+
+        listaLibro = (ArrayList<Libro>) objEntrada.readObject();
+        objEntrada.close();
+        fabricaConexion.alertaAfrimativa("Se Importo Correctamente");
+    } catch (IOException | ClassNotFoundException e) {
+        // Maneja las excepciones adecuadamente
+        e.printStackTrace();
+        fabricaConexion.alertaNegativa("Hubo un error al momento de importar" + e);
+    }
+
+    return listaLibro;
 }
+    
+  public void reemplazarLibros(ArrayList<Libro> libros) {
+    try {
+        // Establecer la conexión
+        Connection conexion = this.fabricaConexion.getConexion();
+        
+        // Preparar una consulta para verificar la existencia de un libro por su ISBN
+        String sqlVerificar = "SELECT COUNT(*) FROM libro WHERE isbn = ?";
+        PreparedStatement sentenciaVerificar = conexion.prepareStatement(sqlVerificar);
+        
+        // Preparar consultas para insertar y actualizar libros
+        String sqlInsertar = "INSERT INTO libro (isbn, titulo, autor, anioPublicacion, editorial, descripcion, cantidadDisponible, categoria)" 
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement sentenciaInsertar = conexion.prepareStatement(sqlInsertar);
+        
+        String sqlActualizar = "UPDATE libro SET titulo = ?, autor = ?, anioPublicacion = ?, editorial = ?, descripcion = ?, cantidadDisponible = ?, categoria = ? WHERE isbn = ?";
+        PreparedStatement sentenciaActualizar = conexion.prepareStatement(sqlActualizar);
+        
+        // Iterar sobre cada libro importado
+        for (Libro libro : libros) {
+            // Verificar si el libro ya existe en la base de datos
+            sentenciaVerificar.setInt(1, libro.getIsbn());
+            ResultSet resultado = sentenciaVerificar.executeQuery();
+            resultado.next();
+            int count = resultado.getInt(1);
+            
+            if (count > 0) {
+                // El libro ya existe, actualizar sus datos
+                sentenciaActualizar.setString(1, libro.getTitulo());
+                sentenciaActualizar.setString(2, libro.getAutor());
+                sentenciaActualizar.setInt(3, libro.getAnioPublicacion());
+                sentenciaActualizar.setString(4, libro.getEditorial());
+                sentenciaActualizar.setString(5, libro.getDescripcion());
+                sentenciaActualizar.setInt(6, libro.getCantidadDisponible());
+                sentenciaActualizar.setString(7, libro.getCategoria());
+                sentenciaActualizar.setInt(8, libro.getIsbn());
+                sentenciaActualizar.executeUpdate();
+            } else {
+                // El libro no existe, insertarlo como un nuevo registro
+                sentenciaInsertar.setInt(1, libro.getIsbn());
+                sentenciaInsertar.setString(2, libro.getTitulo());
+                sentenciaInsertar.setString(3, libro.getAutor());
+                sentenciaInsertar.setInt(4, libro.getAnioPublicacion());
+                sentenciaInsertar.setString(5, libro.getEditorial());
+                sentenciaInsertar.setString(6, libro.getDescripcion());
+                sentenciaInsertar.setInt(7, libro.getCantidadDisponible());
+                sentenciaInsertar.setString(8, libro.getCategoria());
+                sentenciaInsertar.executeUpdate();
+            }
+        }
+        
+        // Cerrar la conexión
+        //conexion.close();
+        
+        // Si es correcto, enviar mensaje de éxito
+        fabricaConexion.alertaAfrimativa("Los libros se importaron correctamente y se reemplazaron en la base de datos.");
+    } catch (SQLException e) {
+        fabricaConexion.alertaNegativa("Hubo un error al reemplazar los libros en la base de datos: " + e);
+    }
+}
+
+
+
+}
+    
+   
+    
+    
+

@@ -4,11 +4,20 @@
  */
 package Consultas;
 
+import Modelo.Cliente;
 import Modelo.Conexion;
 import Modelo.Devolucion_prestamo;
 import Modelo.Empleado;
 import Modelo.Libro;
 import Modelo.Prestamo_libros;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,6 +47,7 @@ public class Cst_Empleado extends Prestamo_libros{
     
     public void mostrarEmpleados(ArrayList<Empleado> listaEmpleados){
         try {
+            
             Connection conexion = this.fabricaConexion.getConexion();
             String sql = "SELECT id_empleado, usuario, pass, sueldo, horario from empleado";
             PreparedStatement sentencia = conexion.prepareStatement(sql);
@@ -370,4 +380,83 @@ public class Cst_Empleado extends Prestamo_libros{
 
     }
     
+     
+     /*-----------CLIENTES-----------------*/
+        public void mostrarClientes(ArrayList<Cliente> listaClientes){
+         try {
+            //Establezco mi conexion
+            Connection conexion = this.fabricaConexion.getConexion();
+            //Defino mi consulta
+            String sql = "select id_cliente, nombre, usuario, pass, telefono, correo from cliente";
+            //Pre-consulta
+            //Preparo al consulta, como decri okis es valido tu parametros de //consulta
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            //obtengo los resultados
+            ResultSet datos = sentencia.executeQuery();
+       
+            //Mi while me ayuda a recorre las FILAS // de lo que datos leidos en resultSet //
+            while(datos.next()){
+                //next avanza al siguiente registro
+                
+                //instancio mi objeto
+                Cliente cl = new Cliente();
+                
+                 //con mis Set coloco lo que esta capturado en mi objeto DEPUES LE DIGO (okey pero lo que esta en esa columno solo puede ser presentado por un INT/String, y ya depsue se le asigna el numero o indice de columna
+               //Es deci con mis SetID coloco lo que esta capturado en mi objeto alumn y en numero de indice q que es mi columna 
+               
+                             // se coloca en columna 1
+               cl.setId(datos.getInt(1));
+               cl.setNombre(datos.getString(2));
+               cl.setUsuario(datos.getString(3));
+               cl.setPass(datos.getString(4));
+               cl.setTelefono(datos.getInt(5));
+               cl.setCorreo(datos.getString(6));
+               
+                
+                listaClientes.add(cl);
+            }
+                datos.close();
+                sentencia.close();
+            
+            
+        } catch (SQLException e) {
+            fabricaConexion.alertaNegativa("Hubo un error al mostrar la Lista de Libros" + e.toString());
+        }
+    }
+        
+        public void serializarTablaCliente(ArrayList<Cliente> listaCliente){
+        Path ruta = Paths.get("Lista de Clientes.txt");
+        try{
+            OutputStream flujoSalida = Files.newOutputStream(ruta);
+            ObjectOutputStream objSalida = new ObjectOutputStream(flujoSalida);
+            
+            objSalida.writeObject(listaCliente);
+            //System.out.println("Se exportaron correctamente");
+            fabricaConexion.alertaAfrimativa("Se exportaron correctamente, su Lista de  Clientes");
+            objSalida.close();
+        }
+        catch(IOException e){
+           fabricaConexion.alertaNegativa("Hubo un error al exportar los datos" + e);
+        }
+    
+    }
+        
+      public ArrayList<Cliente> deserializarTablaCliente() {
+    ArrayList<Cliente> listaCliente = new ArrayList<>();
+    Path ruta = Paths.get("Lista de Clientes.txt");
+
+    try {
+        InputStream flujoEntrada = Files.newInputStream(ruta);
+        ObjectInputStream objEntrada = new ObjectInputStream(flujoEntrada);
+
+        listaCliente = (ArrayList<Cliente>) objEntrada.readObject();
+        objEntrada.close();
+    } catch (IOException | ClassNotFoundException e) {
+        // Maneja las excepciones adecuadamente
+        e.printStackTrace();
+    }
+
+    return listaCliente;
+}
+
 }

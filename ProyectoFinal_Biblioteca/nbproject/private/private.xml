@@ -4,11 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/Consultas/Cst_libro.java</file>
+            <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/Modelo/Conexion.java</file>
             <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/Controlador/ClienteController.java</file>
             <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/Consultas/Cst_Empleado.java</file>
             <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/Controlador/EmpleadoController.java</file>
+            <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/Modelo/Cliente.java</file>
             <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/proyectofinal_biblioteca/ProyectoFinal_Biblioteca.java</file>
-            <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/Modelo/Empleado.java</file>
+            <file>file:/C:/Users/Home/Documents/NetBeansProjects/ProyectoFinal_Biblioteca_javaFX/ProyectoFinal_Biblioteca/src/Modelo/Libro.java</file>
         </group>
     </open-files>
 </project-private>
