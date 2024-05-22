@@ -218,7 +218,7 @@
                               <Line endX="908.0" endY="34.0" startX="269.0" startY="34.0" strokeWidth="2.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pnl_devolucionLibro" layoutX="12.0" layoutY="18.0" prefHeight="691.0" prefWidth="930.0" style="-fx-background-color: #fff;" visible="false">
+                        <AnchorPane fx:id="pnl_devolucionLibro" layoutX="12.0" layoutY="18.0" prefHeight="691.0" prefWidth="930.0" style="-fx-background-color: #fff;">
                            <children>
                               <Label layoutX="25.0" layoutY="20.0" text="Registar Devolución">
                                  <font>
@@ -386,7 +386,7 @@
                               </AnchorPane>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pnl_restaurar" layoutX="20.0" layoutY="25.0" prefHeight="679.0" prefWidth="887.0" style="-fx-background-color: green;" />
+                        <AnchorPane fx:id="pnl_restaurar" layoutX="20.0" layoutY="25.0" prefHeight="679.0" prefWidth="887.0" style="-fx-background-color: green;" visible="false" />
                         <AnchorPane fx:id="pnl_listaUsuaro" layoutX="21.0" layoutY="41.0" prefHeight="656.0" prefWidth="912.0" style="-fx-background-color: #fff;" visible="false">
                            <children>
                               <TableView fx:id="tblClientes" layoutX="26.0" layoutY="65.0" prefHeight="459.0" prefWidth="828.0" style="-fx-background-color: #fff; -fx-border-color: #7F9F80; -fx-border-width: 3;">

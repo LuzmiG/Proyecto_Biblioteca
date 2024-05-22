@@ -405,6 +405,8 @@ public class EmpleadoController implements Initializable {
             consulta.editarLibro(opcContex);
           //  cargarLibros();
               tblLibros.refresh();
+              tblPrestamos.refresh();
+              cargarPrestamos();
                  
             limpiar();  
         }
@@ -488,10 +490,9 @@ public class EmpleadoController implements Initializable {
         
         tblLibros.getColumns().addAll(isbndCol, tituloCol, autorCol, anioCol, editorialCol, descripCol, canCol, categoriaCol);
     
-
-    
-    
     }
+    
+    
       @FXML
     private void btnExportar_libros(ActionEvent event) {
          //Creo un ArrayLIST DE tipo Libro
@@ -967,6 +968,8 @@ public class EmpleadoController implements Initializable {
         tblLibros.getItems().addAll(lista);
         tblLibros.refresh();
         consulta.reemplazarLibros(lista);
+        tblPrestamos.refresh();
+        cargarPrestamos();
         System.out.println("se importro correctamente");
         
     }

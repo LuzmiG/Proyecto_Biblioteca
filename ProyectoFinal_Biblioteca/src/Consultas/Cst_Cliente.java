@@ -162,5 +162,123 @@ public class Cst_Cliente {
         
     }
     
-    
+      public void mostrarHistorial(ArrayList<Prestamo_libros> listaPrestamo, int idCliente){
+      try {
+            //Establezco mi conexion
+            Connection conexion = this.fabricaConexion.getConexion();
+            //Defino mi consulta
+          String sql = "SELECT prestamo_libro.id_prestamo, libro.isbn, libro.titulo, prestamo_libro.fecha, prestamo_libro.estado, "
+                  + "cliente.nombre "
+                  + "FROM prestamo_libro "
+                  + "JOIN cliente ON prestamo_libro.id_cliente = cliente.id_cliente "
+                  + "JOIN devolucion_prestamo ON devolucion_prestamo.id_prestamo = prestamo_libro.id_prestamo "
+                  + "JOIN libro ON libro.isbn = prestamo_libro.isbn "
+                  + "WHERE cliente.id_cliente = ?";
+          //Pre-consulta
+            //Preparo al consulta, como decri okis es valido tu parametros de //consulta
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, idCliente);
+
+            //obtengo los resultados
+            ResultSet datos = sentencia.executeQuery();
+       
+            //Mi while me ayuda a recorre las FILAS // de lo que datos leidos en resultSet //
+            while(datos.next()){
+                //next avanza al siguiente registro
+                
+                //instancio mi objeto
+                Prestamo_libros pl = new Prestamo_libros();
+                
+                 //con mis Set coloco lo que esta capturado en mi objeto DEPUES LE DIGO (okey pero lo que esta en esa columno solo puede ser presentado por un INT/String, y ya depsue se le asigna el numero o indice de columna
+               //Es deci con mis SetID coloco lo que esta capturado en mi objeto alumn y en numero de indice q que es mi columna 
+               
+                             // se coloca en columna 1
+               pl.setId_prestamo(datos.getInt(1));
+                             // se coloca en columna 2
+                pl.setIsbn(datos.getInt(2));
+                pl.setTitulo(datos.getString(3));
+                            // se coloca en columna 3 y asi sucesivamente
+                pl.setFecha_prestamo(datos.getString(4));
+                pl.setEstado(datos.getString(5));
+               // pl.setNombreCliente(datos.getString(6));
+                pl.setNombreCliente(datos.getString(6));
+                            
+                
+                listaPrestamo.add(pl);
+            }
+                datos.close();
+                sentencia.close();
+            
+            
+        } catch (SQLException e) {
+            fabricaConexion.alertaNegativa("Hubo un error al mostrar la Lista de Libros" + e.toString());
+        }
+          
+      
+   
+      }
+      
+      
+      //retorna el ciente para mostrarlo en editar 
+      public Cliente retornarCliente(int idCliente) {
+        Cliente cliente = null;
+        try {
+            Connection conexion = this.fabricaConexion.getConexion();
+            String sql = "SELECT usuario, pass, telefono, correo, nombre FROM cliente WHERE id_cliente = ?";
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, idCliente);
+            
+            ResultSet resultado = sentencia.executeQuery();
+            if (resultado.next()) {
+                cliente = new Cliente();
+                cliente.setUsuario(resultado.getString("usuario"));
+                cliente.setPass(resultado.getString("pass"));
+                cliente.setTelefono(resultado.getInt("telefono"));
+                cliente.setCorreo(resultado.getString("correo"));
+                cliente.setNombre(resultado.getString("nombre"));
+                cliente.setId(idCliente);
+            }
+            resultado.close();
+            sentencia.close();
+        } catch (SQLException e) {
+            fabricaConexion.alertaNegativa("Error al obtener cliente: " + e);
+        }
+        return cliente;
+      }
+
+      
+          
+      
+      
+      public void editarCliente(Cliente CEdita){
+        try {
+            //Establezcon Conexion
+            Connection conexion = this.fabricaConexion.getConexion();
+            //Consulta
+            String sql = "UPDATE cliente SET usuario=?, pass=?, telefono=?, correo=?, nombre=? "+
+                    "WHERE id_cliente=?";
+            //Pre-consulta
+            PreparedStatement sentencia = conexion.prepareStatement(sql);
+            //Pas los valores a mis ?
+            sentencia.setString(1, CEdita.getUsuario());
+            sentencia.setString(2, CEdita.getPass());
+            sentencia.setInt(3, CEdita.getTelefono());
+            sentencia.setString(4, CEdita.getCorreo());
+            sentencia.setString(5, CEdita.getNombre());
+            
+            
+            //isbn
+            sentencia.setInt(6,CEdita.getId());
+            
+            
+            //Prosesa la consulta
+            sentencia.executeUpdate();
+            //Cierro
+            sentencia.close();
+            //afirmacion
+            fabricaConexion.alertaAfrimativa("Se edito Correctamente");
+        } catch (SQLException e) {
+            fabricaConexion.alertaNegativa("Hubo un erro al momento de editar " + e);
+        }
+    }
 }
