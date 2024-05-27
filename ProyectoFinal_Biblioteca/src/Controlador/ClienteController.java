@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -156,7 +157,9 @@ public class ClienteController implements Initializable {
     @FXML
     private Label lblDatosActulizados;
      
-
+    //pila
+    private Stack<Libro> pilaLibros = new Stack<>();
+    
     /**
      * lbl_titulo
      * lbl_autor
@@ -419,7 +422,7 @@ TableColumn isbnCol = new TableColumn("ISBN Libro");
         lbl_categoria.setText(opcContex.getCategoria());
     }
     
- 
+   
 
     @FXML
     private void btnPrestamo(ActionEvent event) {
@@ -440,6 +443,24 @@ TableColumn isbnCol = new TableColumn("ISBN Libro");
    
         
         consulta.registrarPrestamo(pl);
+//  intento de pila 
+        
+        
+    //    String nombreDelLibro = lbl_titulo.getText();
+        pilaLibros.push(pl);
+        
+        for(Libro l : pilaLibros){
+            System.out.println(l);
+            System.out.println("Último libro prestado: " + lbl_titulo.getText());
+        }
+        
+        System.out.println("Con Pop");
+      System.out.println(pilaLibros.pop());
+      
+        
+        
+        // String ultimoLibroPrestado = lbl_titulo.getText();
+        
         
         /*-------------------------
         String nomU = lbl_usuario.getText(); 
@@ -739,7 +760,7 @@ TableColumn isbnCol = new TableColumn("ISBN Libro");
         );
     }
     
-    
+  
 }
 
  /**

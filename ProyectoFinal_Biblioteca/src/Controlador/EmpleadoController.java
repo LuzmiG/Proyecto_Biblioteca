@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -54,6 +55,9 @@ import javafx.stage.StageStyle;
  * @author Luzmi
  */
 public class EmpleadoController implements Initializable {
+    
+    //pila
+    private Stack<Libro> librosPrestados = new Stack<>();
 
     private Button btnForm_Actualizar_Inventario;
     @FXML
@@ -112,8 +116,7 @@ public class EmpleadoController implements Initializable {
     ArrayList<Devolucion_prestamo> listaDevolucion = new ArrayList();
     ArrayList<Empleado> listaEmpleado = new ArrayList();
     ArrayList<Cliente> listaCliente = new ArrayList();
-    
-    
+  
     @FXML
     private Label lbl_regresar;
     
@@ -210,6 +213,12 @@ public class EmpleadoController implements Initializable {
             cargarEmpleados();
             //cargar tabla de Clientes
             cargarClientes();
+            
+            
+            
+            ///ver pila
+            imprimirPila();
+ 
             //---------------------------------
             // Combo Box
             String[] categorias = {"Romance", "Fantasía", "Ciencia ficción", "clásica", "Misterio", "Histórica", "Autoayuda", "Infantil", "Poesía", "Biografías"};
@@ -714,9 +723,39 @@ public class EmpleadoController implements Initializable {
    
     } 
     
+       /*Bueno, aqui vamos a intertar aplicar pilas
+              *Cuando un cliente solicita un préstamo, agregamos el libro a la pila, al devolverlo se retira de la cola
+             */
+
+     // Método para agregar libro a la pila
+    public void PILAprestarLibro(Libro libro) {
+        librosPrestados.push(libro);
+        System.out.println("Libro prestado: " + libro.getTitulo());
+    }
+    // Método para devolver libro de la pila
+    public Libro PILAdevolverLibro() {
+        if (!librosPrestados.isEmpty()) {
+            Libro libroDevuelto = librosPrestados.pop();
+            System.out.println("Libro devuelto: " + libroDevuelto.getTitulo());
+            return libroDevuelto;
+        } else {
+            System.out.println("No hay libros para devolver.");
+            return null;
+        }
+    }
+    // Método para imprimir la pila
+    public void imprimirPila() {
+        System.out.println("Contenido de la pila de libros prestados:");
+        for (Libro libro : librosPrestados) {
+            System.out.println(libro.getTitulo());
+        }
+    }
+    
         @FXML
     private void btnGuardarDevolucion(ActionEvent event) {
       
+         
+        
         
         Devolucion_prestamo dv = new Devolucion_prestamo();
         
@@ -730,8 +769,9 @@ public class EmpleadoController implements Initializable {
         dv.setIsbn(parseInt(lbl_ISBN.getText()));
         
         consultaD.registrarDevolucion(dv);
-       
-       
+
+     PILAdevolverLibro();
+                
         tblDevoluciones.refresh();
         CargarDevoluciones();
         
@@ -744,6 +784,8 @@ public class EmpleadoController implements Initializable {
         limpiarDevolucion();
         
     }
+    
+
     
         public void limpiarDevolucion(){
         lblDatosPrestamo.setText("");
@@ -976,9 +1018,12 @@ public class EmpleadoController implements Initializable {
     else {
         System.out.println("La lista de clientes está vacía.");
     }
+    
     }
 
-
+  public void verpila(){
+       
+    }
     
 
 

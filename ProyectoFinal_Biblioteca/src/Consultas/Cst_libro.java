@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Stack;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.StageStyle;
@@ -34,6 +35,7 @@ public class Cst_libro {
     private Conexion fabricaConexion;
    
     
+   
     //Constructor
     public Cst_libro(){
         this.fabricaConexion = new Conexion();
@@ -58,7 +60,9 @@ public class Cst_libro {
             sentencia.setString(7, CRegistran.getCategoria());
             //Prosesa la consulta
             sentencia.executeUpdate();
-            //Si es correcto manda su mensaje
+            
+            Stack<String> pila = new Stack<>();
+            pila.push(sql);
          //   fabricaConexion.alertaAfrimativa("El Libro se registro Correctamente");
             sentencia.close();
             
@@ -113,6 +117,8 @@ public class Cst_libro {
             fabricaConexion.alertaNegativa("Hubo un error al mostrar la Lista de Libros" + e.toString());
         }
     }
+    
+    
     
     public void editarLibro(Libro CEdita){
         try {
@@ -285,8 +291,9 @@ public class Cst_libro {
     }
 }
 
+    
 
-
+  
 }
     
    
