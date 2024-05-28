@@ -156,7 +156,7 @@ public class ClienteController implements Initializable {
     private Button btnEditarPerfil;
     @FXML
     private Label lblDatosActulizados;
-     
+     Interacciones_ventanas Iv = new Interacciones_ventanas();
     //pila
     private Stack<Libro> pilaLibros = new Stack<>();
     
@@ -185,8 +185,7 @@ public class ClienteController implements Initializable {
          //ver recomendaciones
          cargarRecomendaciones();
          
-         //cargar historial
-      
+       
         
         
          //---------------------------------
@@ -443,6 +442,10 @@ TableColumn isbnCol = new TableColumn("ISBN Libro");
    
         
         consulta.registrarPrestamo(pl);
+       tblHistorial.refresh();
+       cargarHistorial();
+        
+        
 //  intento de pila 
         
         
@@ -511,8 +514,9 @@ TableColumn isbnCol = new TableColumn("ISBN Libro");
 
     @FXML
     private void regresarLogin(MouseEvent event) throws IOException {
-    Interacciones_ventanas Iv = new Interacciones_ventanas();
+    
     Iv.ventanaLogin();
+    
     
     }
 
@@ -542,7 +546,11 @@ TableColumn isbnCol = new TableColumn("ISBN Libro");
      
     }
 
-
+    @FXML
+    private void mostrarHistorial_btn(MouseEvent event) {
+        //cargar historial
+        cargarHistorial();
+    }
     @FXML
     private void btnR_fantasia(ActionEvent event) {
            ObservableList<Libro> datosFiltrados = FXCollections.observableArrayList();
@@ -713,10 +721,7 @@ TableColumn isbnCol = new TableColumn("ISBN Libro");
      
     }
 
-    @FXML
-    private void mostrarHistorial_btn(MouseEvent event) {
-        cargarHistorial();
-    }
+    
 
     @FXML
     private void editarPerfil(MouseEvent event) {

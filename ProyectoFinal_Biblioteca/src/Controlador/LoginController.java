@@ -102,6 +102,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void lblRegistar(MouseEvent event) throws IOException {
+         fabricaConexion.cerrarConexion();
        Interacciones_ventanas Iv = new Interacciones_ventanas();
         Iv.ventanaRegistro();
        fabricaConexion.cerrarConexion();

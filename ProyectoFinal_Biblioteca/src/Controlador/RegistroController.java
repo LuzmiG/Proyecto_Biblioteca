@@ -5,13 +5,20 @@
 package Controlador;
 
 import Consultas.Registro_cliente;
+import Consultas.Verificacion_Usuario;
 import Modelo.Cliente;
 import Modelo.Conexion;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,16 +72,16 @@ public class RegistroController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         this.consulta = new Registro_cliente();
-     //   this.fabricaConexion = new Conexion ();
+        this.fabricaConexion = new Conexion ();
         
     }    
 
     @FXML
     private void lblRegresar(MouseEvent event) throws IOException {
        
-      //  fabricaConexion.cerrarConexion();
+       // fabricaConexion.cerrarConexion();
         Iv.ventanaLogin();
-      //  fabricaConexion.cerrarConexion();
+      // fabricaConexion.cerrarConexion();
     
     }
 
@@ -91,12 +98,23 @@ public class RegistroController implements Initializable {
         
         consulta.registrarCliente(cl); 
         //fabricaConexion.cerrarConexion();
-        limpiarCampos();
-        Iv.ventanaCliente();
-      
-            
+
         
-        }
+       // capturarCliente(usuario);
+        
+            String usuario = txtUsuario.getText();
+         
+            Cliente cliente = capturarCliente(usuario);
+
+            if (cliente != null) {
+                ClienteController clienteController = Iv.ventanaCliente();
+                clienteController.mostrarCredenciales(cliente.getId(), cliente.getNombre());
+            } 
+            else {
+                System.out.println("Cliente no encontrado.");
+            }
+         limpiarCampos();
+        }       
         else{
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error: Usuario");
@@ -107,6 +125,27 @@ public class RegistroController implements Initializable {
           //  System.out.println("El usuario ya existe");
         }
         
+    }
+    
+    public Cliente capturarCliente(String usuario) {
+        Cliente cliente = new Cliente(); // Crear una instancia de Cliente
+        try {
+            Connection conectar = fabricaConexion.getConexion();
+            String sql = "SELECT id_cliente, nombre FROM cliente WHERE usuario = ?";
+            PreparedStatement sentencia = conectar.prepareStatement(sql);
+            sentencia.setString(1, usuario);
+
+            ResultSet datos = sentencia.executeQuery();
+            if (datos.next()) {
+                cliente.setId(datos.getInt("id_cliente"));
+                cliente.setNombre(datos.getString("nombre"));
+
+            }
+            datos.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Verificacion_Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cliente; // Devuelve el objeto Cliente con los datos
     }
     
      private void limpiarCampos() {

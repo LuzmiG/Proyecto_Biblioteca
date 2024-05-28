@@ -171,7 +171,7 @@ public class Cst_Cliente {
                   + "cliente.nombre "
                   + "FROM prestamo_libro "
                   + "JOIN cliente ON prestamo_libro.id_cliente = cliente.id_cliente "
-                  + "JOIN devolucion_prestamo ON devolucion_prestamo.id_prestamo = prestamo_libro.id_prestamo "
+                  + "LEFT JOIN devolucion_prestamo ON devolucion_prestamo.id_prestamo = prestamo_libro.id_prestamo "
                   + "JOIN libro ON libro.isbn = prestamo_libro.isbn "
                   + "WHERE cliente.id_cliente = ?";
           //Pre-consulta
