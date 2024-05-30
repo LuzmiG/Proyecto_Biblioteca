@@ -28,7 +28,7 @@ public class Conexion {
             Class.forName("org.postgresql.Driver");
             conexion = DriverManager.getConnection(url, usuario, contrasenia);
            
-         
+       //     System.out.println("CONEXION EXTIOSA");
     
         } catch (Exception e) {
               Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -38,7 +38,7 @@ public class Conexion {
             alerta.initStyle(StageStyle.UTILITY);
             alerta.showAndWait();
 
-            
+        //    System.out.println("ERROR EN LA CONEXION");
         }
     }
     

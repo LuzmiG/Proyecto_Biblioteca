@@ -13,7 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -281,4 +283,6 @@ public class Cst_Cliente {
             fabricaConexion.alertaNegativa("Hubo un erro al momento de editar " + e);
         }
     }
+      
+      
 }

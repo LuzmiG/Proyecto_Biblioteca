@@ -216,7 +216,7 @@
                               <TextField fx:id="txtBuscar" layoutX="135.0" layoutY="38.0" onKeyTyped="#txtBuscar" prefHeight="25.0" prefWidth="171.0" promptText="Escriba lo que desea buscar" style="-fx-border-color: #7F9F80; -fx-border-width: 3; -fx-background-color: #fff;" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pnl_Bienvenido" layoutX="143.0" layoutY="160.0" prefHeight="307.0" prefWidth="577.0" visible="false">
+                        <AnchorPane fx:id="pnl_Bienvenido" layoutX="143.0" layoutY="160.0" prefHeight="307.0" prefWidth="577.0">
                            <children>
                               <Label layoutX="211.0" layoutY="110.0" text="Bienvenido">
                                  <font>
@@ -328,7 +328,7 @@
                               <Line endX="610.0" layoutX="237.0" layoutY="27.0" startX="34.0" strokeWidth="2.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="pnl_editarPerfil" layoutX="18.0" layoutY="37.0" prefHeight="568.0" prefWidth="859.0">
+                        <AnchorPane fx:id="pnl_editarPerfil" layoutX="18.0" layoutY="37.0" prefHeight="568.0" prefWidth="859.0" visible="false">
                            <children>
                               <Label layoutX="32.0" layoutY="26.0" text="Editar Perfil">
                                  <font>

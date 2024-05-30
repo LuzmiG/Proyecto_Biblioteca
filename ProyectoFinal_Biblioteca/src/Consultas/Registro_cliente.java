@@ -10,11 +10,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 /**
  *
  * @author Luzmi
  */
-public class Registro_cliente {
+public class Registro_cliente extends Conexion {
     
     private Conexion fabricaConexion;
     
@@ -49,11 +51,12 @@ public class Registro_cliente {
             sentencia.setString(5, CRegistran.getCorreo());
             sentencia.setString(6, CRegistran.getNombre());
             
+       
             //ejecuta la consulta (sql (insert into)) que se defini previamente (como que la procesa)
             //SI OCURRAR UN ERROR MANDA A UN ERROR
             sentencia.executeUpdate();
-            
-            fabricaConexion.alertaAfrimativa("Felicidades! Se registro correctamente");
+            alertaAfrimativa("Se creo nuevo usuario: "+ CRegistran.getUsuario() +"\n Su Contraseña es: " + CRegistran.getPass());
+           // fabricaConexion.alertaAfrimativa("Felicidades! Se registro correctamente");
             sentencia.close();
             fabricaConexion.cerrarConexion();
         }
@@ -82,5 +85,16 @@ public class Registro_cliente {
         }
         return existe;
 }
+    
+  
+    @Override
+   public void alertaAfrimativa(String mensaje){
+         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("EXITO");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.initStyle(StageStyle.UTILITY);
+        alert.showAndWait();
+    }
     
 }
